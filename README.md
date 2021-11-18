@@ -38,3 +38,8 @@
   **There is also a Brightness slider Control**
 
 ## Controlling the PC with a remote control
+  The same .NET Application also checks for the Arduino Serial Port data and sends various keystrokes to the PC.
+
+## Controlling the LEDs with a remote control.
+pressing The "ON" button on the LED remote controls enables only the remote control to control the led.\
+Controls include brightness control and color setting.
