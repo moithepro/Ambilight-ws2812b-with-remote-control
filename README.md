@@ -3,12 +3,12 @@
 ## ws2812b Ambilight + remote control for LEDs and PC
   This repository is dedicated to document this project I made for my PC setup.
 ### Items used:
-  **Arduino Uno.\
-  178 cm of 100 LEDs/m 5v ws2812b LED Strips (178 LEDs Total).\
-  40A 5v Power Supply (to power the LEDs).\
-  KY-022 Infrared Reciever.\
-  330 Ω Resistor\
-  And a lot of wires...**
+  **• Arduino Uno.\
+  • 178 cm of 100 LEDs/m 5v ws2812b LED Strips (178 LEDs Total).\
+  • 40A 5v Power Supply (to power the LEDs).\
+  • KY-022 Infrared Reciever.\
+  • 330 Ω Resistor\
+  • And a lot of wires...**
 
 
 
