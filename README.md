@@ -15,7 +15,6 @@
 ### The project has **3** main targets:
   **Controlling the LEDs with a .NET program on the PC.**\
   **Controlling the PC with a remote control**\
-
   **Controlling the LEDs with a remote control.**
 
 ### Circuit Diagram:
@@ -29,8 +28,8 @@
   The Infrared Reciever Signal pin is connected to digital pin 7.
 ## Controlling the LEDs with a .NET program on the PC
   Using a .NET Framework WinForm Application to Control the Leds in many ways (not only Ambilight).\
-  The LEDs are Controlled **by Serial Communication at 115200 Baud Rate with the Arduino** via the PC in 5 main ways.\![IMG_20211019_174302](https://user-images.githubusercontent.com/52801196/142471316-f561b05a-39aa-43a4-b5ed-0b1de6a9e33b.jpg)
-
+  The LEDs are Controlled **by Serial Communication at 115200 Baud Rate with the Arduino** via the PC in 5 main ways.\
+   **|**\
   **-->** The LED Control Operations are executed on the main GUI Thread. (Which might block it but it was the best working option.)\
   **Individual Colors** - Lets you Choose from a Color Palatte.\
   **Rainbow** - Changing Colors by continuously incrementing the hue property of the color.\
