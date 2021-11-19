@@ -21,9 +21,9 @@
   Below is the circuit diagram:
 
 
+  ![Arduino-diagram](https://user-images.githubusercontent.com/52801196/142697124-293a43a1-f6bc-4373-9697-7a915990cf32.png)
+  ![image](https://user-images.githubusercontent.com/52801196/142697209-36e55328-3a04-44e8-b19c-15cb57b13161.png)
 
-
-  ![Arduino-diagram](https://user-images.githubusercontent.com/52801196/142459418-9de6cd77-dacb-47a4-a21b-45125d318c4c.png)
   The LED Strip data pin is connected to digital pin 5 with a 330 ohm Resistor.\
   The Infrared Reciever Signal pin is connected to digital pin 7.
 ## Controlling the LEDs with a .NET program on the PC
