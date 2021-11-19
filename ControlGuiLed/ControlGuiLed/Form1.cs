@@ -20,8 +20,12 @@ namespace ControlGuiLed
     {
 
         public const int BAUD_RATE = 115200;
+        // Serial port name
         public const string PORT_NAME = "COM3";
+        
+        // Number of leds constant
         private const int LEDNUM = 178;
+        // Control serial recieve codes
         public const int CONTROL_POWER_SEND_CODE = 0;
         public const int CONTROL_VOL_UP_SEND_CODE = 1;
         public const int CONTROL_FUNC_STOP_SEND_CODE = 2;
@@ -50,17 +54,20 @@ namespace ControlGuiLed
         public const byte WAITING_RECV_CODE = 26;
         public const byte OFF_RECV_CODE = 27;
 
-        public BlockingCollection<byte[]> SerialWriteQueue = new BlockingCollection<byte[]>();
         private SerialPort _serialPort;
+
+        public BlockingCollection<byte[]> SerialWriteQueue = new BlockingCollection<byte[]>();
+        
         private bool controlNumFunc = false;
-        public byte ledBrightness = 200;
+        private byte ledBrightness = 200;
         private int rainbowLastH = 0;
         private Rectangle[] ambilightRectangles;
-        public Color OFF_COLOR = Color.Black;
-        LedMode ledMode = LedMode.Color;
+        private Color OFF_COLOR = Color.Black;
+        private LedMode ledMode = LedMode.Color;
         private Thread readThread;
         private Thread writeThread;
-        private ScreenDivision division;
+        private ScreenAmbilightRegions division;
+        // Audio device
         private MMDevice device;
         private bool spectogramBrightness = false;
         private int partyLastH = 0;
@@ -83,7 +90,7 @@ namespace ControlGuiLed
             exit.Click += new EventHandler(Exit_Click);
             contextMenu.MenuItems.Add(exit);
             notifyIcon1.ContextMenu = contextMenu;
-            division = new ScreenDivision();
+            division = new ScreenAmbilightRegions();
             ambilightRectangles = division.getRectangles();
             MMDeviceEnumerator enumerator = new MMDeviceEnumerator();
             device = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Console);
@@ -92,13 +99,13 @@ namespace ControlGuiLed
             SerialStart();
         }
 
-
+        // Turn Off led on shutdown
         private void OnShutdown(object sender, EventArgs e)
         {
             WriteLedColorMode(OFF_COLOR, 0);
             Environment.Exit(0);
         }
-
+        // Make form invisible
         protected override void SetVisibleCore(bool value)
         {
             if (!this.IsHandleCreated)
@@ -108,6 +115,7 @@ namespace ControlGuiLed
             }
             base.SetVisibleCore(value);
         }
+        // Start serial write and read Threads
         public void SerialStart()
         {
             readThread = new Thread(Read);
@@ -115,7 +123,7 @@ namespace ControlGuiLed
             writeThread = new Thread(Write);
             writeThread.Start();
         }
-
+        // Read Thread method
         public void Read()
         {
             while (true)
@@ -154,6 +162,7 @@ namespace ControlGuiLed
                             KeyBD.keybd_event((byte)Keys.Up, 0, 0, 0);
                             break;
                         case CONTROL_0_SEND_CODE:
+                            //Haha rickroll
                             //System.Diagnostics.Process.Start("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
                             if (!controlNumFunc)
                                 KeyBD.keybd_event((byte)Keys.D0, 0, 0, 0);
@@ -257,6 +266,7 @@ namespace ControlGuiLed
                 }
             }
         }
+        // Write thread method
         public void Write()
         {
             while (true)
@@ -335,6 +345,7 @@ namespace ControlGuiLed
 
 
         }
+        // Write to arduino methods
         public void WriteLedColorMode(Color color)
         {
             byte[] data = new byte[] { COLOR_RECV_CODE, ledBrightness, color.R, color.G, color.B };
@@ -376,7 +387,7 @@ namespace ControlGuiLed
             }
             SerialWriteQueue.Add(data);
         }
-
+        //Turn off led
         public void LedOff()
         {
             StopAllLedOperations();
@@ -424,7 +435,7 @@ namespace ControlGuiLed
             if (rainbowLastH >= 360)
                 rainbowLastH = 0;
         }
-
+        // Update Ambilight led mode
         private void AmbilightTimer_Tick(object sender, EventArgs e)
         {
             //if (ambilightTask == null || ambilightTask?.Status == TaskStatus.RanToCompletion) {
@@ -519,7 +530,7 @@ namespace ControlGuiLed
             UngrayAllButtons();
             RainbowButton.BackColor = Color.Gray;
         }
-
+        
         private void AmbilightButton_Click(object sender, EventArgs e)
         {
             StopAllLedOperations();
@@ -542,12 +553,7 @@ namespace ControlGuiLed
             RainbowButton.BackColor = Color.LightGray;
             PartyButton.BackColor = Color.LightGray;
         }
-
-        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-
-        }
-
+        // Update Color led mode
         private void ColorTimer_Tick(object sender, EventArgs e)
         {
             if (spectogramBrightness)
@@ -573,7 +579,7 @@ namespace ControlGuiLed
             UngrayAllButtons();
             PartyButton.BackColor = Color.Gray;
         }
-
+        // Update Party led mode
         private void PartyTimer_Tick(object sender, EventArgs e)
         {
             if (spectogramBrightness)
@@ -593,13 +599,13 @@ namespace ControlGuiLed
             }
 
         }
-
+        // Reset Audio
         private void ResetAudioB_Click(object sender, EventArgs e)
         {
             MMDeviceEnumerator enumerator = new MMDeviceEnumerator();
             device = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Console);
         }
-
+        // Turbo button press
         private void AmbilightTurboC_CheckedChanged(object sender, EventArgs e)
         {
             if (AmbilightTurboC.Checked)
@@ -612,13 +618,14 @@ namespace ControlGuiLed
             }
         }
     }
-
+    // Class to send keystrokes to the PC
     public class KeyBD
     {
         [DllImport("user32.dll")]
         public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
 
     }
+   
     enum LedMode
     {
         Off,
@@ -677,7 +684,8 @@ namespace ControlGuiLed
             else return val;
         }
     }
-    public class ScreenDivision
+    // Class to divide the screen into Rectangle regions for taking Ambilight pixel data
+    public class ScreenAmbilightRegions
     {
         int rectangleWidth;
         int rectangleHeight;
@@ -713,6 +721,7 @@ namespace ControlGuiLed
             List<Rectangle> rectangles2 = new List<Rectangle>();
             List<Rectangle> rectangles3 = new List<Rectangle>();
             List<Rectangle> rectangles4 = new List<Rectangle>();
+            // Create rectangles for each of the 4 edges of the screen
             for (int i = 0; i < rectangleNum; i++)
             {
                 Rectangle rec = new Rectangle((int)Math.Round(rectangleWidthBoundry + (i * (rectangleWidth + rectangleSpace + rectangleOffset))), 0, rectangleWidth, rectangleHeight);
@@ -746,6 +755,7 @@ namespace ControlGuiLed
             return rectangles.ToArray();
         }
     }
+
     unsafe class BmpPixelSnoop : IDisposable
     {
         // A reference to the bitmap to be wrapped
@@ -799,7 +809,7 @@ namespace ControlGuiLed
             }
             catch (Exception ex)
             {
-                throw new System.InvalidOperationException("Could not lock bitmap, is it already being snooped somewhere else?", ex);
+                throw new InvalidOperationException("Could not lock bitmap, is it already being snooped somewhere else?", ex);
             }
 
             // Calculate number of bytes per pixel
