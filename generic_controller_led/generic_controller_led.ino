@@ -51,7 +51,7 @@
 #define CONTROL2_G4_RECV_CODE 0xEA15EF00
 #define CONTROL2_B4_RECV_CODE 0xE916EF00
 #define CONTROL2_SMOOTH_RECV_CODE 0xE817EF00
-
+// Serial Control send codes
 #define CONTROL_POWER_SEND_CODE 0
 #define CONTROL_VOL_UP_SEND_CODE 1
 #define CONTROL_FUNC_STOP_SEND_CODE 2
@@ -78,7 +78,6 @@
 #define CANCEL_LED_SEND_CODE 21
 
 
-#include <avdweb_VirtualDelay.h>
 #include <IRremote.h>
 #include <FastLED.h>
 // RECIVE CODES:
@@ -89,15 +88,18 @@
 #define BRIGHTNESS_RECV_CODE 25
 #define WAITING_RECV_CODE 26
 #define OFF_RECV_CODE 27
-
+// Timeout for LED Modes Serial data recieving
 #define COLOR_MODE_TIMEOUT_INTERVAL 100
 #define PIXEL_MODE_TIMEOUT_INTERVAL 50
 #define DYNAMIC_MODE_TIMEOUT_INTERVAL 200
 #define BRIGHTNESS_MODE_TIMEOUT_INTERVAL 50
 #define BAUD_RATE 115200
+// IR Reciever pin is 7
 #define CONTROL_RECV_PIN 7
+// LED pin is 5
 #define LED_PIN 5
 #define NUM_LEDS 178
+// Data arrays bounds
 #define COLOR_ARR_MAX_INDEX 3
 #define PIXEL_ARR_MAX_INDEX 4
 
@@ -178,6 +180,7 @@ void setup() {
 }
 
 void loop() {
+  // if Serial is available read data, store in Arrays and update LED
   if (Serial.available() && serialMode) {
     switch (currentLedMode) {
       case WAITING:
@@ -342,6 +345,7 @@ pixelCaseEnd:
         }
     }
   }
+  // Check for IR input
   if (IrReceiver.decode()) {
     long data = IrReceiver.decodedIRData.decodedRawData;
     IrReceiver.decodedIRData.decodedRawData = 0;
@@ -436,7 +440,7 @@ pixelCaseEnd:
 
 
 
-      //control2: Led Control
+      //control2: Led Control ON Check
       case CONTROL2_POWER_ON_RECV_CODE:
         if (serialMode) {
           switchToControlMode();
@@ -445,6 +449,7 @@ pixelCaseEnd:
         }
         break;
     }
+    // if serial mode is false that means that LED is controlled by Controller
     if (!serialMode) {
       switch (data) {
         case 0x000000:
