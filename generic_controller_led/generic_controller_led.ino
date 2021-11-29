@@ -346,7 +346,7 @@ pixelCaseEnd:
     }
   }
   // Check for IR input
-  if (IrReceiver.decode()) {
+  if (currentLedMode != DYNAMIC && IrReceiver.decode()) {
     long data = IrReceiver.decodedIRData.decodedRawData;
     IrReceiver.decodedIRData.decodedRawData = 0;
     switch (data) {
