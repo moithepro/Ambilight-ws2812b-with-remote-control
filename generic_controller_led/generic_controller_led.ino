@@ -80,15 +80,14 @@
 
 #include <IRremote.h>
 #include <FastLED.h>
-// RECIVE CODES:
-
+// RECIVE CODES (bytes from serial com):
 #define COLOR_RECV_CODE 22
 #define DYNAMIC_RECV_CODE 23
 #define PIXEL_RECV_CODE 24
 #define BRIGHTNESS_RECV_CODE 25
 #define WAITING_RECV_CODE 26
 #define OFF_RECV_CODE 27
-// Timeout for LED Modes Serial data recieving
+// Timeout for LED Modes Serial com data recieving
 #define COLOR_MODE_TIMEOUT_INTERVAL 100
 #define PIXEL_MODE_TIMEOUT_INTERVAL 50
 #define DYNAMIC_MODE_TIMEOUT_INTERVAL 200
@@ -112,7 +111,7 @@ enum LED_MODE { COLOR,
                 BRIGHTNESS,
                 WAITING,
                 OFF
-};
+              };
 typedef enum LED_MODE LED_MODE;
 unsigned long colorModeTimeoutTimestamp = 0;
 bool colorModeTimeoutRunning = false;
@@ -218,10 +217,12 @@ void loop() {
       case COLOR:
 
         {
+          // Initialise timeout if not running
           if (!colorModeTimeoutRunning) {
             colorModeTimeoutTimestamp = millis();
             colorModeTimeoutRunning = true;
           }
+          // If timeout passed reset variables
           if (colorModeTimeoutRunning && colorModeTimeoutTimestamp + COLOR_MODE_TIMEOUT_INTERVAL < millis()) {
             currentColorIndex = 0;
             colorModeShow();
@@ -229,6 +230,7 @@ void loop() {
             currentLedMode = WAITING;
             goto colorCaseEnd;
           }
+          // Read & Update
           while (Serial.available() > 0) {
             byte data = Serial.read();
             currentColorARGB[currentColorIndex++] = data;
@@ -246,10 +248,12 @@ colorCaseEnd:
       case DYNAMIC:
 
         {
+          // Initialise timeout if not running
           if (!dynamicModeTimeoutRunning) {
             dynamicModeTimeoutTimestamp = millis();
             dynamicModeTimeoutRunning = true;
           }
+          // If timeout passed reset variables
           if (dynamicModeTimeoutRunning && dynamicModeTimeoutTimestamp + DYNAMIC_MODE_TIMEOUT_INTERVAL < millis()) {
             currentDynamicIndex = 0;
             show();
@@ -257,12 +261,13 @@ colorCaseEnd:
             currentLedMode = WAITING;
             goto dynamicCaseEnd;
           }
+          // Read & Update
           while (Serial.available() > 0) {
             byte data = Serial.read();
             if (currentDynamicIndex > 0) {
               int ledIndex = (currentDynamicIndex - 1) / 3;
               int colorIndex = (currentDynamicIndex - 1) % 3;
-              switch (colorIndex) {
+              /*switch (colorIndex) {
                 case 0:
                   {
                     leds[ledIndex].r = data;
@@ -278,7 +283,8 @@ colorCaseEnd:
                     leds[ledIndex].b = data;
                     break;
                   }
-              }
+                }*/
+              leds[ledIndex][colorIndex] = data;
             } else {
               currentBrightness = data;
             }
@@ -297,10 +303,12 @@ dynamicCaseEnd:
       case PIXEL:
 
         {
+          // Initialise timeout if not running
           if (!pixelModeTimeoutRunning) {
             pixelModeTimeoutTimestamp = millis();
             pixelModeTimeoutRunning = true;
           }
+          // If timeout passed reset variables
           if (pixelModeTimeoutRunning && pixelModeTimeoutTimestamp + PIXEL_MODE_TIMEOUT_INTERVAL < millis()) {
             currentPixelIndex = 0;
             pixelModeShow();
@@ -308,6 +316,7 @@ dynamicCaseEnd:
             currentLedMode = WAITING;
             goto pixelCaseEnd;
           }
+          // Read & Update
           while (Serial.available() > 0) {
             byte data = Serial.read();
             currentPixelIARGB[currentPixelIndex++] = data;
@@ -324,16 +333,19 @@ pixelCaseEnd:
         }
       case BRIGHTNESS:
         {
+          // Initialise timeout if not running
           if (!brightnessModeTimeoutRunning) {
             brightnessModeTimeoutTimestamp = millis();
             brightnessModeTimeoutRunning = true;
           }
+          // If timeout passed reset variables
           if (brightnessModeTimeoutRunning && brightnessModeTimeoutTimestamp + BRIGHTNESS_MODE_TIMEOUT_INTERVAL < millis()) {
             show();
             brightnessModeTimeoutRunning = false;
             currentLedMode = WAITING;
             break;
           }
+           // Read & Update
           if (Serial.available() > 0) {
             byte data = Serial.read();
             currentBrightness = data;

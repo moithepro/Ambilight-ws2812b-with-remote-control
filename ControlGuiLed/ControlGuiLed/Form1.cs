@@ -599,7 +599,7 @@ namespace ControlGuiLed
             }
 
         }
-        // Reset Audio
+        // Reset Audio Device
         private void ResetAudioB_Click(object sender, EventArgs e)
         {
             MMDeviceEnumerator enumerator = new MMDeviceEnumerator();
