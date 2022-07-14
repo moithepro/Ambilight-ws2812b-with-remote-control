@@ -28,12 +28,10 @@
   The Infrared Reciever Signal pin is connected to digital pin 7.
 ## Controlling the LEDs with a .NET program on the PC
   Using a .NET Framework WinForm Application to Control the Leds in many ways (not only Ambilight).\
-  The LEDs are Controlled **by Serial Communication at 115200 Baud Rate with the Arduino** via the PC in 5 main ways.\
-   **|**\
-  **-->** The LED Control Operations are executed on the main GUI Thread. (Which might block it but it was the best working option.)\
+  The LEDs are Controlled **by Serial Communication with a Buad Rate of 250000 with the Arduino** via the PC in 5 main ways.\
   **Individual Colors** - Lets you Choose from a Color Palatte.\
   **Rainbow** - Changing Colors by continuously incrementing the hue property of the color.\
-  **Party** - Continuously Changing Colors to simulate Party Lights.\
+  **Party** - Continuously Changing Colors which is very cool lol :).\
   **Ambilight** - Taking screen pixel data to change the LEDs to colors displayed on the screen. (Best Mode).\
   **Spectogram** - Taking audio device audio level to update the LEDs Brightness According to the current Level (Reset sound device option at rightmost top corner). \
    \
@@ -44,8 +42,11 @@
   The same .NET Application also checks for the Arduino Serial Port data and sends various keystrokes to the PC.
 
 ## Controlling the LEDs with a remote control.
-pressing The "ON" button on the LED remote controls enables only the remote control to control the led.\
+Pressing The "ON" button on the LED remote controls enables only the remote control to control the led.\
 Controls include brightness control and color setting.
+
+## Supporting me:
+The best way you can support me is by checking for bugs and suggesting new features.
 
 ## Photos
 ![IMG_20211016_213444](https://user-images.githubusercontent.com/52801196/142470433-9fb1de0c-5dad-4057-ae4c-f377d217943b.jpg)
