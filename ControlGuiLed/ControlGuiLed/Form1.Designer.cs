@@ -35,12 +35,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.RainbowButton = new System.Windows.Forms.Button();
             this.AmbilightButton = new System.Windows.Forms.Button();
-            this.AmbilightTimer = new System.Windows.Forms.Timer(this.components);
-            this.RainbowTimer = new System.Windows.Forms.Timer(this.components);
-            this.ColorTimer = new System.Windows.Forms.Timer(this.components);
             this.SpectogramButton = new System.Windows.Forms.Button();
             this.PartyButton = new System.Windows.Forms.Button();
-            this.PartyTimer = new System.Windows.Forms.Timer(this.components);
             this.ResetAudioB = new System.Windows.Forms.Button();
             this.AmbilightTurboC = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.BrightnessBar)).BeginInit();
@@ -52,13 +48,13 @@
             this.notifyIcon1.Text = "Control";
             this.notifyIcon1.Visible = true;
             this.notifyIcon1.Click += new System.EventHandler(this.notifyIcon1_Click);
-            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.label1.Location = new System.Drawing.Point(232, 62);
+            this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(102, 24);
             this.label1.TabIndex = 0;
@@ -71,10 +67,11 @@
             // ColorButton
             // 
             this.ColorButton.BackColor = System.Drawing.Color.LightGray;
+            this.ColorButton.Dock = System.Windows.Forms.DockStyle.Top;
             this.ColorButton.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.ColorButton.Location = new System.Drawing.Point(221, 256);
+            this.ColorButton.Location = new System.Drawing.Point(0, 24);
             this.ColorButton.Name = "ColorButton";
-            this.ColorButton.Size = new System.Drawing.Size(123, 38);
+            this.ColorButton.Size = new System.Drawing.Size(583, 56);
             this.ColorButton.TabIndex = 1;
             this.ColorButton.Text = "Choose Color";
             this.ColorButton.UseVisualStyleBackColor = false;
@@ -83,17 +80,19 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Red;
-            this.panel1.Location = new System.Drawing.Point(221, 310);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 80);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(123, 34);
+            this.panel1.Size = new System.Drawing.Size(583, 52);
             this.panel1.TabIndex = 2;
             // 
             // OffButton
             // 
             this.OffButton.BackColor = System.Drawing.Color.LightGray;
-            this.OffButton.Location = new System.Drawing.Point(236, 188);
+            this.OffButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.OffButton.Location = new System.Drawing.Point(0, 132);
             this.OffButton.Name = "OffButton";
-            this.OffButton.Size = new System.Drawing.Size(98, 36);
+            this.OffButton.Size = new System.Drawing.Size(583, 54);
             this.OffButton.TabIndex = 3;
             this.OffButton.Text = "Turn Off";
             this.OffButton.UseVisualStyleBackColor = false;
@@ -101,30 +100,34 @@
             // 
             // BrightnessBar
             // 
-            this.BrightnessBar.Location = new System.Drawing.Point(1, 433);
+            this.BrightnessBar.Dock = System.Windows.Forms.DockStyle.Top;
+            this.BrightnessBar.Location = new System.Drawing.Point(0, 199);
             this.BrightnessBar.Maximum = 255;
             this.BrightnessBar.Name = "BrightnessBar";
-            this.BrightnessBar.Size = new System.Drawing.Size(584, 45);
-            this.BrightnessBar.TabIndex = 4;
+            this.BrightnessBar.Size = new System.Drawing.Size(583, 45);
+            this.BrightnessBar.TabIndex = 5;
             this.BrightnessBar.ValueChanged += new System.EventHandler(this.BrightnessBar_ValueChanged);
             this.BrightnessBar.MouseCaptureChanged += new System.EventHandler(this.BrightnessBar_MouseCaptureChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(253, 417);
+            this.label2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label2.Location = new System.Drawing.Point(0, 186);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(59, 13);
-            this.label2.TabIndex = 5;
+            this.label2.TabIndex = 4;
             this.label2.Text = "Brightness:";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // RainbowButton
             // 
             this.RainbowButton.BackColor = System.Drawing.Color.LightGray;
+            this.RainbowButton.Dock = System.Windows.Forms.DockStyle.Top;
             this.RainbowButton.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.RainbowButton.Location = new System.Drawing.Point(377, 264);
+            this.RainbowButton.Location = new System.Drawing.Point(0, 244);
             this.RainbowButton.Name = "RainbowButton";
-            this.RainbowButton.Size = new System.Drawing.Size(100, 23);
+            this.RainbowButton.Size = new System.Drawing.Size(583, 41);
             this.RainbowButton.TabIndex = 6;
             this.RainbowButton.Text = "Rainbow";
             this.RainbowButton.UseVisualStyleBackColor = false;
@@ -133,36 +136,23 @@
             // AmbilightButton
             // 
             this.AmbilightButton.BackColor = System.Drawing.Color.LightGray;
+            this.AmbilightButton.Dock = System.Windows.Forms.DockStyle.Top;
             this.AmbilightButton.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.AmbilightButton.Location = new System.Drawing.Point(91, 264);
+            this.AmbilightButton.Location = new System.Drawing.Point(0, 285);
             this.AmbilightButton.Name = "AmbilightButton";
-            this.AmbilightButton.Size = new System.Drawing.Size(100, 23);
+            this.AmbilightButton.Size = new System.Drawing.Size(583, 41);
             this.AmbilightButton.TabIndex = 7;
             this.AmbilightButton.Text = "Ambilight";
             this.AmbilightButton.UseVisualStyleBackColor = false;
             this.AmbilightButton.Click += new System.EventHandler(this.AmbilightButton_Click);
             // 
-            // AmbilightTimer
-            // 
-            this.AmbilightTimer.Interval = 80;
-            this.AmbilightTimer.Tick += new System.EventHandler(this.AmbilightTimer_Tick);
-            // 
-            // RainbowTimer
-            // 
-            this.RainbowTimer.Interval = 60;
-            this.RainbowTimer.Tick += new System.EventHandler(this.RainbowTimer_Tick);
-            // 
-            // ColorTimer
-            // 
-            this.ColorTimer.Interval = 40;
-            this.ColorTimer.Tick += new System.EventHandler(this.ColorTimer_Tick);
-            // 
             // SpectogramButton
             // 
             this.SpectogramButton.BackColor = System.Drawing.Color.LightGray;
-            this.SpectogramButton.Location = new System.Drawing.Point(236, 375);
+            this.SpectogramButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.SpectogramButton.Location = new System.Drawing.Point(0, 343);
             this.SpectogramButton.Name = "SpectogramButton";
-            this.SpectogramButton.Size = new System.Drawing.Size(98, 23);
+            this.SpectogramButton.Size = new System.Drawing.Size(583, 41);
             this.SpectogramButton.TabIndex = 8;
             this.SpectogramButton.Text = "\"Spectogram\"";
             this.SpectogramButton.UseVisualStyleBackColor = false;
@@ -171,24 +161,21 @@
             // PartyButton
             // 
             this.PartyButton.BackColor = System.Drawing.Color.LightGray;
-            this.PartyButton.Location = new System.Drawing.Point(377, 225);
+            this.PartyButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.PartyButton.Location = new System.Drawing.Point(0, 384);
             this.PartyButton.Name = "PartyButton";
-            this.PartyButton.Size = new System.Drawing.Size(100, 23);
+            this.PartyButton.Size = new System.Drawing.Size(583, 41);
             this.PartyButton.TabIndex = 9;
             this.PartyButton.Text = "Party";
             this.PartyButton.UseVisualStyleBackColor = false;
             this.PartyButton.Click += new System.EventHandler(this.Party_Click);
             // 
-            // PartyTimer
-            // 
-            this.PartyTimer.Interval = 60;
-            this.PartyTimer.Tick += new System.EventHandler(this.PartyTimer_Tick);
-            // 
             // ResetAudioB
             // 
-            this.ResetAudioB.Location = new System.Drawing.Point(454, 0);
+            this.ResetAudioB.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ResetAudioB.Location = new System.Drawing.Point(0, 425);
             this.ResetAudioB.Name = "ResetAudioB";
-            this.ResetAudioB.Size = new System.Drawing.Size(131, 24);
+            this.ResetAudioB.Size = new System.Drawing.Size(583, 42);
             this.ResetAudioB.TabIndex = 10;
             this.ResetAudioB.Text = "Reset Sound Device";
             this.ResetAudioB.UseVisualStyleBackColor = true;
@@ -197,9 +184,10 @@
             // AmbilightTurboC
             // 
             this.AmbilightTurboC.AutoSize = true;
-            this.AmbilightTurboC.Location = new System.Drawing.Point(91, 229);
+            this.AmbilightTurboC.Dock = System.Windows.Forms.DockStyle.Top;
+            this.AmbilightTurboC.Location = new System.Drawing.Point(0, 326);
             this.AmbilightTurboC.Name = "AmbilightTurboC";
-            this.AmbilightTurboC.Size = new System.Drawing.Size(99, 17);
+            this.AmbilightTurboC.Size = new System.Drawing.Size(583, 17);
             this.AmbilightTurboC.TabIndex = 11;
             this.AmbilightTurboC.Text = "Ambilight Turbo";
             this.AmbilightTurboC.UseVisualStyleBackColor = true;
@@ -212,14 +200,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(583, 475);
-            this.Controls.Add(this.AmbilightTurboC);
             this.Controls.Add(this.ResetAudioB);
             this.Controls.Add(this.PartyButton);
             this.Controls.Add(this.SpectogramButton);
+            this.Controls.Add(this.AmbilightTurboC);
             this.Controls.Add(this.AmbilightButton);
             this.Controls.Add(this.RainbowButton);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.BrightnessBar);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.OffButton);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.ColorButton);
@@ -247,12 +235,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button RainbowButton;
         private System.Windows.Forms.Button AmbilightButton;
-        private System.Windows.Forms.Timer AmbilightTimer;
-        private System.Windows.Forms.Timer RainbowTimer;
-        private System.Windows.Forms.Timer ColorTimer;
+
         private System.Windows.Forms.Button SpectogramButton;
         private System.Windows.Forms.Button PartyButton;
-        private System.Windows.Forms.Timer PartyTimer;
+
         private System.Windows.Forms.Button ResetAudioB;
         private System.Windows.Forms.CheckBox AmbilightTurboC;
     }

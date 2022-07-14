@@ -19,10 +19,10 @@ namespace ControlGuiLed
     public partial class Form1 : Form
     {
 
-        public const int BAUD_RATE = 115200;
+        public const int BAUD_RATE = 250000;
         // Serial port name
         public const string PORT_NAME = "COM3";
-        
+
         // Number of leds constant
         private const int LEDNUM = 178;
         // Control serial recieve codes
@@ -57,7 +57,7 @@ namespace ControlGuiLed
         private SerialPort _serialPort;
 
         public BlockingCollection<byte[]> SerialWriteQueue = new BlockingCollection<byte[]>();
-        
+
         private bool controlNumFunc = false;
         private byte ledBrightness = 200;
         private int rainbowLastH = 0;
@@ -72,12 +72,26 @@ namespace ControlGuiLed
         private bool spectogramBrightness = false;
         private int partyLastH = 0;
         //private Task ambilightTask = null;
-
+        private System.Threading.Timer AmbilightTimer;
+        private int AmbilightTimerRegularInterval = 60;
+        private int AmbilightTurboTimerInterval = 40;
+        private int AmbilightTimerInterval = 60;
+        private int AmbilightTimerDue = Timeout.Infinite;
+        private System.Threading.Timer RainbowTimer;
+        private int RainbowTimerInterval = 60;
+        private System.Threading.Timer ColorTimer;
+        private int ColorTimerInterval = 40;
+        private System.Threading.Timer PartyTimer;
+        private int PartyTimerInterval = 60;
         public Color[] OFF_COLOR_ARR = new Color[LEDNUM];
 
         public Form1()
         {
             InitializeComponent();
+            AmbilightTimer = new System.Threading.Timer((o) => { AmbilightTimer_Tick(); });
+            RainbowTimer = new System.Threading.Timer((o) => { RainbowTimer_Tick(); });
+            ColorTimer = new System.Threading.Timer((o) => { ColorTimer_Tick(); });
+            PartyTimer = new System.Threading.Timer((o) => { PartyTimer_Tick(); });
             for (int i = 0; i < OFF_COLOR_ARR.Length; i++)
             {
                 OFF_COLOR_ARR[i] = OFF_COLOR;
@@ -279,10 +293,11 @@ namespace ControlGuiLed
         }
         private void StopAllLedOperations()
         {
-            PartyTimer.Stop();
-            ColorTimer.Stop();
-            AmbilightTimer.Stop();
-            RainbowTimer.Stop();
+            PartyTimer.Change(Timeout.Infinite, Timeout.Infinite);
+            ColorTimer.Change(Timeout.Infinite, Timeout.Infinite);
+            AmbilightTimerDue = Timeout.Infinite;
+            AmbilightTimer.Change(AmbilightTimerDue, Timeout.Infinite);
+            RainbowTimer.Change(Timeout.Infinite, Timeout.Infinite);
         }
         private void ConnectSerialPort()
         {
@@ -340,7 +355,7 @@ namespace ControlGuiLed
                 WriteLedColorMode(panel1.BackColor);
                 UngrayAllButtons();
                 ColorButton.BackColor = Color.Gray;
-                ColorTimer.Start();
+                ColorTimer.Change(0, ColorTimerInterval);
             }
 
 
@@ -417,11 +432,20 @@ namespace ControlGuiLed
         }
         private byte getSpectogramBrightness()
         {
-            double lvl = device.AudioMeterInformation.MasterPeakValue;
-            double mul = (lvl / (ledBrightness / 255.0 * 1.0));
+            AutoResetEvent _event = new AutoResetEvent(false);
+            double lvl = 0;
+            double mul = 0;
+            this.Invoke
+                (new Action(() =>
+                {
+                    lvl = device.AudioMeterInformation.MasterPeakValue;
+                    mul = (lvl / (ledBrightness / 255.0 * 1.0));
+                    _event.Set();
+                }));
+            _event.WaitOne();
             return (byte)MathTools.Clamp((int)(255 * mul), 0, 255);
         }
-        private void RainbowTimer_Tick(object sender, EventArgs e)
+        private void RainbowTimer_Tick()
         {
             if (spectogramBrightness)
             {
@@ -436,7 +460,7 @@ namespace ControlGuiLed
                 rainbowLastH = 0;
         }
         // Update Ambilight led mode
-        private void AmbilightTimer_Tick(object sender, EventArgs e)
+        private void AmbilightTimer_Tick()
         {
             //if (ambilightTask == null || ambilightTask?.Status == TaskStatus.RanToCompletion) {
             //ambilightTask?.Dispose();
@@ -525,16 +549,17 @@ namespace ControlGuiLed
         {
             StopAllLedOperations();
             rainbowLastH = 0;
-            RainbowTimer.Start();
+            RainbowTimer.Change(0, RainbowTimerInterval);
             ledMode = LedMode.Rainbow;
             UngrayAllButtons();
             RainbowButton.BackColor = Color.Gray;
         }
-        
+
         private void AmbilightButton_Click(object sender, EventArgs e)
         {
             StopAllLedOperations();
-            AmbilightTimer.Start();
+            AmbilightTimerDue = 0;
+            AmbilightTimer.Change(AmbilightTimerDue, AmbilightTimerInterval);
             ledMode = LedMode.Ambilight;
             UngrayAllButtons();
             AmbilightButton.BackColor = Color.Gray;
@@ -554,7 +579,7 @@ namespace ControlGuiLed
             PartyButton.BackColor = Color.LightGray;
         }
         // Update Color led mode
-        private void ColorTimer_Tick(object sender, EventArgs e)
+        private void ColorTimer_Tick()
         {
             if (spectogramBrightness)
             {
@@ -574,13 +599,13 @@ namespace ControlGuiLed
         {
             StopAllLedOperations();
             partyLastH = 0;
-            PartyTimer.Start();
+            PartyTimer.Change(0, PartyTimerInterval);
             ledMode = LedMode.Party;
             UngrayAllButtons();
             PartyButton.BackColor = Color.Gray;
         }
         // Update Party led mode
-        private void PartyTimer_Tick(object sender, EventArgs e)
+        private void PartyTimer_Tick()
         {
             if (spectogramBrightness)
             {
@@ -610,12 +635,18 @@ namespace ControlGuiLed
         {
             if (AmbilightTurboC.Checked)
             {
-                AmbilightTimer.Interval = 60;
+                AmbilightTimerInterval = AmbilightTurboTimerInterval;
             }
             else
             {
-                AmbilightTimer.Interval = 80;
+                AmbilightTimerInterval = AmbilightTimerRegularInterval;
             }
+            AmbilightTimer.Change(AmbilightTimerDue, AmbilightTimerInterval);
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
     // Class to send keystrokes to the PC
@@ -625,7 +656,7 @@ namespace ControlGuiLed
         public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
 
     }
-   
+
     enum LedMode
     {
         Off,
