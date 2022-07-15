@@ -84,7 +84,7 @@ namespace ControlGuiLed
         private System.Threading.Timer PartyTimer;
         private int PartyTimerInterval = 60;
         public Color[] OFF_COLOR_ARR = new Color[LEDNUM];
-
+        private AutoResetEvent AmbilightTimerFinishedEvent = new AutoResetEvent(false); 
         public Form1()
         {
             InitializeComponent();
@@ -297,6 +297,10 @@ namespace ControlGuiLed
             ColorTimer.Change(Timeout.Infinite, Timeout.Infinite);
             AmbilightTimerDue = Timeout.Infinite;
             AmbilightTimer.Change(AmbilightTimerDue, Timeout.Infinite);
+            if (ledMode == LedMode.Ambilight) { 
+                AmbilightTimerFinishedEvent.Reset();
+                AmbilightTimerFinishedEvent.WaitOne(500);
+            }
             RainbowTimer.Change(Timeout.Infinite, Timeout.Infinite);
         }
         private void ConnectSerialPort()
@@ -406,6 +410,7 @@ namespace ControlGuiLed
         public void LedOff()
         {
             StopAllLedOperations();
+            ledMode = LedMode.Off;
             panel1.BackColor = OFF_COLOR;
             WriteLedColorMode(OFF_COLOR, 0);
             UngrayAllButtons();
@@ -466,65 +471,69 @@ namespace ControlGuiLed
             //ambilightTask?.Dispose();
             Color[] pixels = new Color[LEDNUM];
             //ambilightTask = Task.Run(() => {
-            Bitmap image = ColorTools.GetImageFromScreen(new Rectangle(0, 0, division.Width, division.Height));
-            if (image != null)
+            using (Bitmap image = ColorTools.GetImageFromScreen(new Rectangle(0, 0, division.Width, division.Height)))
             {
-
-
-                BmpPixelSnoop bmp = new BmpPixelSnoop(image);
-                for (int l = 0; l < ambilightRectangles.Length; l++)
+                if (image != null)
                 {
 
-                    long rSum = 0;
-                    long gSum = 0;
-                    long bSum = 0;
-                    int num = 0;
-                    for (int i = 0; i < ambilightRectangles[l].Width; i += 8)
+
+                    using (BmpPixelSnoop bmp = new BmpPixelSnoop(image))
                     {
-                        for (int j = 0; j < ambilightRectangles[l].Height; j += 8)
+                        for (int l = 0; l < ambilightRectangles.Length; l++)
                         {
 
-                            Color pixel = bmp.GetPixel(i + ambilightRectangles[l].Location.X, j + ambilightRectangles[l].Location.Y);
-                            rSum += pixel.R;
-                            gSum += pixel.G;
-                            bSum += pixel.B;
-                            num++;
+                            long rSum = 0;
+                            long gSum = 0;
+                            long bSum = 0;
+                            int num = 0;
+                            for (int i = 0; i < ambilightRectangles[l].Width; i += 8)
+                            {
+                                for (int j = 0; j < ambilightRectangles[l].Height; j += 8)
+                                {
+
+                                    Color pixel = bmp.GetPixel(i + ambilightRectangles[l].Location.X, j + ambilightRectangles[l].Location.Y);
+                                    rSum += pixel.R;
+                                    gSum += pixel.G;
+                                    bSum += pixel.B;
+                                    num++;
+                                }
+                            }
+
+                            pixels[l] = Color.FromArgb((int)(rSum / num), (int)(gSum / num), (int)(bSum / num));
+
+
                         }
                     }
 
-                    pixels[l] = Color.FromArgb((int)(rSum / num), (int)(gSum / num), (int)(bSum / num));
-
-
-                }
-                bmp.Dispose();
-
-                /*for (int l = 0; l < ambilightRectangles.Length; l++)
-                {
-
-                    long rSum = 0;
-                    long gSum = 0;
-                    long bSum = 0;
-                    int num = 0;
-                    for (int i = 0; i < ambilightRectangles[l].Width; i += 8)
+                    /*for (int l = 0; l < ambilightRectangles.Length; l++)
                     {
-                        for (int j = 0; j < ambilightRectangles[l].Height; j += 8)
+
+                        long rSum = 0;
+                        long gSum = 0;
+                        long bSum = 0;
+                        int num = 0;
+                        for (int i = 0; i < ambilightRectangles[l].Width; i += 8)
                         {
+                            for (int j = 0; j < ambilightRectangles[l].Height; j += 8)
+                            {
 
-                            Color pixel = image.GetPixel(i + ambilightRectangles[l].Location.X, j + ambilightRectangles[l].Location.Y);
-                            rSum += pixel.R;
-                            gSum += pixel.G;
-                            bSum += pixel.B;
-                            num++;
+                                Color pixel = image.GetPixel(i + ambilightRectangles[l].Location.X, j + ambilightRectangles[l].Location.Y);
+                                rSum += pixel.R;
+                                gSum += pixel.G;
+                                bSum += pixel.B;
+                                num++;
+                            }
                         }
+
+                        pixels[l] = Color.FromArgb((int)(rSum / num), (int)(gSum / num), (int)(bSum / num));
+
+
                     }
+                    */
 
-                    pixels[l] = Color.FromArgb((int)(rSum / num), (int)(gSum / num), (int)(bSum / num));
-
-
+                    
                 }
-                */
-
-                image.Dispose();
+                AmbilightTimerFinishedEvent.Set();
             }
 
 
