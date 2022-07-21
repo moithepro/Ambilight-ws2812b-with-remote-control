@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "95e9317f-eb90-48e4-9412-899a1555cf00": {
+      "ProjectGuid": "95e9317f-eb90-48e4-9412-899a1555cf00",
+      "DisplayName": "ControlGuiLed",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

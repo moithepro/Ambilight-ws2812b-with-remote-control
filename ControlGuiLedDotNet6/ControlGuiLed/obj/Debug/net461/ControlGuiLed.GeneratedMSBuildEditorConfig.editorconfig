@@ -1,0 +1,9 @@
+is_global = true
+build_property.ApplicationManifest = 
+build_property.StartupObject = 
+build_property.ApplicationDefaultFont = 
+build_property.ApplicationHighDpiMode = 
+build_property.ApplicationUseCompatibleTextRendering = 
+build_property.ApplicationVisualStyles = 
+build_property.RootNamespace = ControlGuiLed
+build_property.ProjectDir = D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLedDotNet6\ControlGuiLed\
