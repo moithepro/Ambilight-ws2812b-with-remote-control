@@ -33,7 +33,7 @@
   **Rainbow** - Changing Colors by continuously incrementing the hue property of the color.\
   **Party** - Continuously Changing Colors which is very cool lol :).\
   **Ambilight** - Taking screen pixel data to change the LEDs to colors displayed on the screen. (Best Mode).\
-  **Spectogram** - Taking audio device audio level to update the LEDs Brightness According to the current Level (Reset sound device option at rightmost top corner). \
+  **Spectogram** - Taking audio device audio level to update the LEDs Brightness According to the current Level (Reset sound device option). \
    \
   **Turbo** - Lowering LEDs Update times so it will update faster. (May cause flickering due to hardware limitations)\
   **There is also a Brightness slider Control**
