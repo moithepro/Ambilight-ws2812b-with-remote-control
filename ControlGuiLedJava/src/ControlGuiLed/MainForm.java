@@ -131,33 +131,43 @@ public class MainForm {
 						controlNumFunc = !controlNumFunc;
 						break;
 					case Finalants.CONTROL_VOL_UP_SEND_CODE:
-
+						robot.keyPress(KeyEvent.VK_UP);
+						robot.keyRelease(KeyEvent.VK_UP);
 						break;
 					case Finalants.CONTROL_FUNC_STOP_SEND_CODE:
 						// KeyBD.keybd_event((byte) Keys.Escape, 0, 0, 0);
 						break;
 					case Finalants.CONTROL_BACKWARDS_SEND_CODE:
-						// KeyBD.keybd_event((byte) Keys.MediaPreviousTrack, 0, 0, 0);
+						robot.keyPress(KeyEvent.VK_LEFT);
+						robot.keyRelease(KeyEvent.VK_LEFT);
 						break;
 					case Finalants.CONTROL_PLAY_PAUSE_SEND_CODE:
-						// KeyBD.keybd_event((byte) Keys.MediaPlayPause, 0, 0, 0);
+						robot.keyPress(KeyEvent.VK_SPACE);
+						robot.keyRelease(KeyEvent.VK_SPACE);
+
 						break;
 					case Finalants.CONTROL_FORWARD_SEND_CODE:
-						// KeyBD.keybd_event((byte) Keys.MediaNextTrack, 0, 0, 0);
+						robot.keyPress(KeyEvent.VK_RIGHT);
+						robot.keyRelease(KeyEvent.VK_RIGHT);
+
 						break;
 					case Finalants.CONTROL_DOWN_SEND_CODE:
-						// KeyBD.keybd_event((byte) Keys.Down, 0, 0, 0);
+						robot.keyPress(KeyEvent.VK_DOWN);
+						robot.keyRelease(KeyEvent.VK_DOWN);
+
 						break;
 					case Finalants.CONTROL_VOL_DOWN_SEND_CODE:
-						// KeyBD.keybd_event((byte) Keys.VolumeDown, 0, 0, 0);
+						robot.keyPress(KeyEvent.VK_DOWN);
+						robot.keyRelease(KeyEvent.VK_DOWN);
 						break;
 					case Finalants.CONTROL_UP_SEND_CODE:
-						// KeyBD.keybd_event((byte) Keys.Up, 0, 0, 0);
+						robot.keyPress(KeyEvent.VK_UP);
+						robot.keyRelease(KeyEvent.VK_UP);
 						break;
 					case Finalants.CONTROL_0_SEND_CODE:
 						// Haha rickroll
 						try {
-							Desktop.getDesktop().browse( new URI("https://www.youtube.com/watch?v=dQw4w9WgXcQ"));
+							Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=dQw4w9WgXcQ"));
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
