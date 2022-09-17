@@ -54,5 +54,4 @@ The remote controls:\
 ![1637258300903](https://user-images.githubusercontent.com/52801196/142470793-93cb5baa-1b1a-4918-9836-f59e4a962d59.jpg)
 ![IMG_20211019_174302](https://user-images.githubusercontent.com/52801196/142471346-73e1c083-9f02-43fc-befa-3472a0947fdf.jpg)
 
-.Net 6 Version:
-[https://github.com/moithepro/ControlGuiLedDotNet6](https://github.com/moithepro/ControlGuiLedDotNet6)
+
