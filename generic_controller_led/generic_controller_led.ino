@@ -75,7 +75,6 @@
 
 #define CANCEL_LED_SEND_CODE 21
 
-
 #include <IRremote.h>
 #include <FastLED.h>
 // RECIVE CODES (bytes from serial com):
