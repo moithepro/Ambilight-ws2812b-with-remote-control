@@ -19,7 +19,7 @@ namespace ControlGuiLed
     public partial class Form1 : Form
     {
 
-        public const int BAUD_RATE = 250000;
+        public const int BAUD_RATE = 500000;
         // Serial port name
         public const string PORT_NAME = "COM3";
 
@@ -444,7 +444,7 @@ namespace ControlGuiLed
                 (new Action(() =>
                 {
                     lvl = device.AudioMeterInformation.MasterPeakValue;
-                    mul = (lvl / (ledBrightness / 255.0 * 1.0));
+                    mul = (lvl / (ledBrightness / 255.0));
                     _event.Set();
                 }));
             _event.WaitOne();

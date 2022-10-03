@@ -124,7 +124,7 @@ void switchToControlMode()
 }
 void setup()
 {
-  Serial.begin(250000);
+  Serial.begin(500000);
   IrReceiver.begin(12, true);
   FastLED.addLeds<WS2812, 27, GRB>(leds, 178);
 }
