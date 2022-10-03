@@ -444,11 +444,11 @@ namespace ControlGuiLed
                 (new Action(() =>
                 {
                     lvl = device.AudioMeterInformation.MasterPeakValue;
-                    mul = (lvl / (ledBrightness / 255.0));
+                    mul = (lvl  / (spectogramSensitivity.Value / 127.5));
                     _event.Set();
                 }));
             _event.WaitOne();
-            return (byte)MathTools.Clamp((int)(255 * mul), 0, 255);
+            return (byte)MathTools.Clamp((int)(ledBrightness * mul), 0, 255);
         }
         private void RainbowTimer_Tick()
         {

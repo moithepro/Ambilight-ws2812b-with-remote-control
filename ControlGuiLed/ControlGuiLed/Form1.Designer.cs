@@ -39,7 +39,10 @@
             this.PartyButton = new System.Windows.Forms.Button();
             this.ResetAudioB = new System.Windows.Forms.Button();
             this.AmbilightTurboC = new System.Windows.Forms.CheckBox();
+            this.spectogramSensitivity = new System.Windows.Forms.TrackBar();
+            this.label = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.BrightnessBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spectogramSensitivity)).BeginInit();
             this.SuspendLayout();
             // 
             // notifyIcon1
@@ -101,11 +104,12 @@
             // BrightnessBar
             // 
             this.BrightnessBar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.BrightnessBar.Location = new System.Drawing.Point(0, 199);
+            this.BrightnessBar.Location = new System.Drawing.Point(0, 257);
             this.BrightnessBar.Maximum = 255;
             this.BrightnessBar.Name = "BrightnessBar";
             this.BrightnessBar.Size = new System.Drawing.Size(583, 45);
             this.BrightnessBar.TabIndex = 5;
+            this.BrightnessBar.Value = 200;
             this.BrightnessBar.ValueChanged += new System.EventHandler(this.BrightnessBar_ValueChanged);
             this.BrightnessBar.MouseCaptureChanged += new System.EventHandler(this.BrightnessBar_MouseCaptureChanged);
             // 
@@ -113,7 +117,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label2.Location = new System.Drawing.Point(0, 186);
+            this.label2.Location = new System.Drawing.Point(0, 244);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(59, 13);
             this.label2.TabIndex = 4;
@@ -125,7 +129,7 @@
             this.RainbowButton.BackColor = System.Drawing.Color.LightGray;
             this.RainbowButton.Dock = System.Windows.Forms.DockStyle.Top;
             this.RainbowButton.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.RainbowButton.Location = new System.Drawing.Point(0, 244);
+            this.RainbowButton.Location = new System.Drawing.Point(0, 302);
             this.RainbowButton.Name = "RainbowButton";
             this.RainbowButton.Size = new System.Drawing.Size(583, 41);
             this.RainbowButton.TabIndex = 6;
@@ -138,7 +142,7 @@
             this.AmbilightButton.BackColor = System.Drawing.Color.LightGray;
             this.AmbilightButton.Dock = System.Windows.Forms.DockStyle.Top;
             this.AmbilightButton.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.AmbilightButton.Location = new System.Drawing.Point(0, 285);
+            this.AmbilightButton.Location = new System.Drawing.Point(0, 343);
             this.AmbilightButton.Name = "AmbilightButton";
             this.AmbilightButton.Size = new System.Drawing.Size(583, 41);
             this.AmbilightButton.TabIndex = 7;
@@ -150,7 +154,7 @@
             // 
             this.SpectogramButton.BackColor = System.Drawing.Color.LightGray;
             this.SpectogramButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.SpectogramButton.Location = new System.Drawing.Point(0, 343);
+            this.SpectogramButton.Location = new System.Drawing.Point(0, 401);
             this.SpectogramButton.Name = "SpectogramButton";
             this.SpectogramButton.Size = new System.Drawing.Size(583, 41);
             this.SpectogramButton.TabIndex = 8;
@@ -162,7 +166,7 @@
             // 
             this.PartyButton.BackColor = System.Drawing.Color.LightGray;
             this.PartyButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.PartyButton.Location = new System.Drawing.Point(0, 384);
+            this.PartyButton.Location = new System.Drawing.Point(0, 442);
             this.PartyButton.Name = "PartyButton";
             this.PartyButton.Size = new System.Drawing.Size(583, 41);
             this.PartyButton.TabIndex = 9;
@@ -173,7 +177,7 @@
             // ResetAudioB
             // 
             this.ResetAudioB.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ResetAudioB.Location = new System.Drawing.Point(0, 425);
+            this.ResetAudioB.Location = new System.Drawing.Point(0, 483);
             this.ResetAudioB.Name = "ResetAudioB";
             this.ResetAudioB.Size = new System.Drawing.Size(583, 42);
             this.ResetAudioB.TabIndex = 10;
@@ -185,7 +189,7 @@
             // 
             this.AmbilightTurboC.AutoSize = true;
             this.AmbilightTurboC.Dock = System.Windows.Forms.DockStyle.Top;
-            this.AmbilightTurboC.Location = new System.Drawing.Point(0, 326);
+            this.AmbilightTurboC.Location = new System.Drawing.Point(0, 384);
             this.AmbilightTurboC.Name = "AmbilightTurboC";
             this.AmbilightTurboC.Size = new System.Drawing.Size(583, 17);
             this.AmbilightTurboC.TabIndex = 11;
@@ -193,13 +197,33 @@
             this.AmbilightTurboC.UseVisualStyleBackColor = true;
             this.AmbilightTurboC.CheckedChanged += new System.EventHandler(this.AmbilightTurboC_CheckedChanged);
             // 
+            // spectogramSensitivity
+            // 
+            this.spectogramSensitivity.Dock = System.Windows.Forms.DockStyle.Top;
+            this.spectogramSensitivity.Location = new System.Drawing.Point(0, 199);
+            this.spectogramSensitivity.Maximum = 255;
+            this.spectogramSensitivity.Name = "spectogramSensitivity";
+            this.spectogramSensitivity.Size = new System.Drawing.Size(583, 45);
+            this.spectogramSensitivity.TabIndex = 12;
+            this.spectogramSensitivity.Value = 200;
+            // 
+            // label
+            // 
+            this.label.AutoSize = true;
+            this.label.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label.Location = new System.Drawing.Point(0, 186);
+            this.label.Name = "label";
+            this.label.Size = new System.Drawing.Size(117, 13);
+            this.label.TabIndex = 13;
+            this.label.Text = "Spectogram Sensitivity:";
+            // 
             // Form1
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(583, 475);
+            this.ClientSize = new System.Drawing.Size(583, 546);
             this.Controls.Add(this.ResetAudioB);
             this.Controls.Add(this.PartyButton);
             this.Controls.Add(this.SpectogramButton);
@@ -208,6 +232,8 @@
             this.Controls.Add(this.RainbowButton);
             this.Controls.Add(this.BrightnessBar);
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.spectogramSensitivity);
+            this.Controls.Add(this.label);
             this.Controls.Add(this.OffButton);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.ColorButton);
@@ -218,6 +244,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.BrightnessBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spectogramSensitivity)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -241,6 +268,8 @@
 
         private System.Windows.Forms.Button ResetAudioB;
         private System.Windows.Forms.CheckBox AmbilightTurboC;
+        private System.Windows.Forms.TrackBar spectogramSensitivity;
+        private System.Windows.Forms.Label label;
     }
 }
 
