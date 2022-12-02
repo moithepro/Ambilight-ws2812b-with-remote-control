@@ -4,5 +4,5 @@
     "output": "../ArduinoOutput",
     "programmer": "esp32:esptool",
     "port": "COM3",
-    "sketch": "src\\generic_controller_led_esp32.ino"
+    "sketch": "generic_controller_led_esp32.ino"
 }

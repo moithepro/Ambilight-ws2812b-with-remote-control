@@ -3,7 +3,7 @@ package ControlGuiLed;
 public class Finalants {
 	// Number of leds static finalant
     public static final int LEDNUM = 178;
-    public static final int BUADRATE = 250000;
+    public static final int BUADRATE = 500000;
     // Control serial recieve codes
     public static final int CONTROL_POWER_SEND_CODE = 0;
     public static final int CONTROL_VOL_UP_SEND_CODE = 1;
