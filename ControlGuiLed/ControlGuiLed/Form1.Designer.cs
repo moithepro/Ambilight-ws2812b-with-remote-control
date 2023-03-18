@@ -118,7 +118,6 @@
             this.label2.Size = new System.Drawing.Size(59, 13);
             this.label2.TabIndex = 4;
             this.label2.Text = "Brightness:";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // RainbowButton
             // 
