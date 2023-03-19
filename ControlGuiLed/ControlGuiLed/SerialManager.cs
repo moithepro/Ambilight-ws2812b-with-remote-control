@@ -52,6 +52,12 @@ namespace ControlGuiLed
         private Thread writeThread;
         private bool controlNumFunc = false;
 
+        private MainApp mainApp;
+
+        public SerialManager(MainApp mainApp) {
+            this.mainApp = mainApp;
+        }
+        // Start serial write and read Threads
         public void SerialStart()
         {
             readThread = new Thread(Read);
@@ -59,6 +65,7 @@ namespace ControlGuiLed
             writeThread = new Thread(Write);
             writeThread.Start();
         }
+        // Read Thread method
         public void Read()
         {
             while (true)
@@ -211,16 +218,17 @@ namespace ControlGuiLed
                     _serialPort.Handshake = Handshake.None;
 
                     _serialPort.Open();
-                    Program.form1.SetConnected(true);
+                    mainApp.SetConnected(true);
                     break;
                 }
                 catch (IOException)
                 {
-                    Program.form1.SetConnected(false);
+                    mainApp.SetConnected(false);
                 }
                 Thread.Sleep(1000);
             }
         }
+        // Write thread method
         public void Write()
         {
             while (true)

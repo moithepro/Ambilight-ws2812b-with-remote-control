@@ -229,10 +229,10 @@ D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLed\ControlGuiLed\b
 D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLed\ControlGuiLed\obj\x64\Release\ControlGuiLed.csproj.AssemblyReference.cache
 D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLed\ControlGuiLed\obj\x64\Release\ControlGuiLed.csproj.SuggestedBindingRedirects.cache
 D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLed\ControlGuiLed\obj\x64\Release\ControlGuiLed.exe.config
-D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLed\ControlGuiLed\obj\x64\Release\ControlGuiLed.Form1.resources
 D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLed\ControlGuiLed\obj\x64\Release\ControlGuiLed.Properties.Resources.resources
 D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLed\ControlGuiLed\obj\x64\Release\ControlGuiLed.csproj.GenerateResource.cache
 D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLed\ControlGuiLed\obj\x64\Release\ControlGuiLed.csproj.CoreCompileInputs.cache
 D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLed\ControlGuiLed\obj\x64\Release\ControlGuiLed.csproj.CopyComplete
 D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLed\ControlGuiLed\obj\x64\Release\ControlGuiLed.exe
 D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLed\ControlGuiLed\obj\x64\Release\ControlGuiLed.pdb
+D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLed\ControlGuiLed\obj\x64\Release\ControlGuiLed.MainApp.resources

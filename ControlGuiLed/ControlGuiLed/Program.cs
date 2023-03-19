@@ -7,7 +7,7 @@ using System.Windows.Forms;
 namespace ControlGuiLed {
     public static class Program {
 
-        public static Form1 form1 { get; private set; }
+        public static MainApp form1 { get; private set; }
 
         /// <summary>
         /// The main entry point for the application.
@@ -16,7 +16,7 @@ namespace ControlGuiLed {
         static void Main () {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            form1 = new Form1();
+            form1 = new MainApp();
             Application.Run(form1);
             
         }
