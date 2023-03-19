@@ -36,6 +36,7 @@ namespace ControlGuiLed
         public const int CONTROL_7_SEND_CODE = 18;
         public const int CONTROL_8_SEND_CODE = 19;
         public const int CONTROL_9_SEND_CODE = 20;
+        // Control serial recieve codes
         public const byte COLOR_RECV_CODE = 22;
         public const byte DYNAMIC_RECV_CODE = 23;
         public const byte PIXEL_RECV_CODE = 24;

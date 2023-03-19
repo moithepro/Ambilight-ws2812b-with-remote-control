@@ -38,8 +38,10 @@
             this.SpectogramButton = new System.Windows.Forms.Button();
             this.PartyButton = new System.Windows.Forms.Button();
             this.ResetAudioB = new System.Windows.Forms.Button();
-            this.AmbilightTurboC = new System.Windows.Forms.CheckBox();
+            this.ambilightInterval = new System.Windows.Forms.TrackBar();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.BrightnessBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ambilightInterval)).BeginInit();
             this.SuspendLayout();
             // 
             // notifyIcon1
@@ -149,7 +151,7 @@
             // 
             this.SpectogramButton.BackColor = System.Drawing.Color.LightGray;
             this.SpectogramButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.SpectogramButton.Location = new System.Drawing.Point(0, 343);
+            this.SpectogramButton.Location = new System.Drawing.Point(0, 384);
             this.SpectogramButton.Name = "SpectogramButton";
             this.SpectogramButton.Size = new System.Drawing.Size(583, 41);
             this.SpectogramButton.TabIndex = 8;
@@ -161,7 +163,7 @@
             // 
             this.PartyButton.BackColor = System.Drawing.Color.LightGray;
             this.PartyButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.PartyButton.Location = new System.Drawing.Point(0, 384);
+            this.PartyButton.Location = new System.Drawing.Point(0, 425);
             this.PartyButton.Name = "PartyButton";
             this.PartyButton.Size = new System.Drawing.Size(583, 41);
             this.PartyButton.TabIndex = 9;
@@ -172,7 +174,7 @@
             // ResetAudioB
             // 
             this.ResetAudioB.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ResetAudioB.Location = new System.Drawing.Point(0, 425);
+            this.ResetAudioB.Location = new System.Drawing.Point(0, 466);
             this.ResetAudioB.Name = "ResetAudioB";
             this.ResetAudioB.Size = new System.Drawing.Size(583, 42);
             this.ResetAudioB.TabIndex = 10;
@@ -180,29 +182,40 @@
             this.ResetAudioB.UseVisualStyleBackColor = true;
             this.ResetAudioB.Click += new System.EventHandler(this.ResetAudioB_Click);
             // 
-            // AmbilightTurboC
+            // ambilightInterval
             // 
-            this.AmbilightTurboC.AutoSize = true;
-            this.AmbilightTurboC.Dock = System.Windows.Forms.DockStyle.Top;
-            this.AmbilightTurboC.Location = new System.Drawing.Point(0, 326);
-            this.AmbilightTurboC.Name = "AmbilightTurboC";
-            this.AmbilightTurboC.Size = new System.Drawing.Size(583, 17);
-            this.AmbilightTurboC.TabIndex = 11;
-            this.AmbilightTurboC.Text = "Ambilight Turbo";
-            this.AmbilightTurboC.UseVisualStyleBackColor = true;
-            this.AmbilightTurboC.CheckedChanged += new System.EventHandler(this.AmbilightTurboC_CheckedChanged);
+            this.ambilightInterval.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ambilightInterval.Location = new System.Drawing.Point(0, 339);
+            this.ambilightInterval.Maximum = 200;
+            this.ambilightInterval.Name = "ambilightInterval";
+            this.ambilightInterval.Size = new System.Drawing.Size(583, 45);
+            this.ambilightInterval.TabIndex = 11;
+            this.ambilightInterval.Value = 60;
+            this.ambilightInterval.Scroll += new System.EventHandler(this.ambilightInterval_Scroll);
+            this.ambilightInterval.ValueChanged += new System.EventHandler(this.ambilightInterval_ValueChanged);
             // 
-            // Form1
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label3.Location = new System.Drawing.Point(0, 326);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(127, 13);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Ambilight Interval (ms): 60";
+            // 
+            // MainApp
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(583, 475);
+            this.ClientSize = new System.Drawing.Size(583, 515);
             this.Controls.Add(this.ResetAudioB);
             this.Controls.Add(this.PartyButton);
             this.Controls.Add(this.SpectogramButton);
-            this.Controls.Add(this.AmbilightTurboC);
+            this.Controls.Add(this.ambilightInterval);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.AmbilightButton);
             this.Controls.Add(this.RainbowButton);
             this.Controls.Add(this.BrightnessBar);
@@ -212,11 +225,12 @@
             this.Controls.Add(this.ColorButton);
             this.Controls.Add(this.label1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form1";
+            this.Name = "MainApp";
             this.Text = "Control";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.BrightnessBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ambilightInterval)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -239,7 +253,8 @@
         private System.Windows.Forms.Button PartyButton;
 
         private System.Windows.Forms.Button ResetAudioB;
-        private System.Windows.Forms.CheckBox AmbilightTurboC;
+        private System.Windows.Forms.TrackBar ambilightInterval;
+        private System.Windows.Forms.Label label3;
     }
 }
 

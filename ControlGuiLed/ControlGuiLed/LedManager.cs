@@ -10,6 +10,7 @@ namespace ControlGuiLed
     internal class LedManager
     {
         private SerialManager _serialManager;
+        // Number of leds constant
         public const int LEDNUM = 178;
         public byte ledBrightness = 200;
         public static Color OFF_COLOR = Color.Black;

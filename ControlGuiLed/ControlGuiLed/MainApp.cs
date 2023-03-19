@@ -19,16 +19,6 @@ namespace ControlGuiLed
     public partial class MainApp : Form
     {
 
-
-
-        // Number of leds constant
-
-        // Control serial recieve codes
-
-
-
-
-
         private int rainbowLastH = 0;
         private Rectangle[] ambilightRectangles;
         private LedMode ledMode = LedMode.Color;
@@ -39,16 +29,14 @@ namespace ControlGuiLed
         private bool spectogramBrightness = false;
         private int partyLastH = 0;
         //private Task ambilightTask = null;
-        private System.Threading.Timer AmbilightTimer;
-        private int AmbilightTimerRegularInterval = 60;
-        private int AmbilightTurboTimerInterval = 40;
+        private UpdateTimer AmbilightTimer;
         private int AmbilightTimerInterval = 60;
         private int AmbilightTimerDue = Timeout.Infinite;
-        private System.Threading.Timer RainbowTimer;
+        private UpdateTimer RainbowTimer;
         private int RainbowTimerInterval = 60;
-        private System.Threading.Timer ColorTimer;
+        private UpdateTimer ColorTimer;
         private int ColorTimerInterval = 40;
-        private System.Threading.Timer PartyTimer;
+        private UpdateTimer PartyTimer;
         private int PartyTimerInterval = 60;
 
         private AutoResetEvent AmbilightTimerFinishedEvent = new AutoResetEvent(false);
@@ -80,10 +68,10 @@ namespace ControlGuiLed
 
 
             serialManager.SerialStart();
-            AmbilightTimer = new System.Threading.Timer((o) => { AmbilightTimer_Tick(); });
-            RainbowTimer = new System.Threading.Timer((o) => { RainbowTimer_Tick(); });
-            ColorTimer = new System.Threading.Timer((o) => { ColorTimer_Tick(); });
-            PartyTimer = new System.Threading.Timer((o) => { PartyTimer_Tick(); });
+            AmbilightTimer = new UpdateTimer((o) => { AmbilightTimer_Tick(); });
+            RainbowTimer = new UpdateTimer((o) => { RainbowTimer_Tick(); });
+            ColorTimer = new UpdateTimer((o) => { ColorTimer_Tick(); });
+            PartyTimer = new UpdateTimer((o) => { PartyTimer_Tick(); });
 
         }
 
@@ -398,20 +386,18 @@ namespace ControlGuiLed
             MMDeviceEnumerator enumerator = new MMDeviceEnumerator();
             device = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Console);
         }
-        // Turbo button press
-        private void AmbilightTurboC_CheckedChanged(object sender, EventArgs e)
+
+        private void ambilightInterval_Scroll(object sender, EventArgs e)
         {
-            if (AmbilightTurboC.Checked)
-            {
-                AmbilightTimerInterval = AmbilightTurboTimerInterval;
-            }
-            else
-            {
-                AmbilightTimerInterval = AmbilightTimerRegularInterval;
-            }
-            AmbilightTimer.Change(AmbilightTimerDue, AmbilightTimerInterval);
+
         }
 
+        private void ambilightInterval_ValueChanged(object sender, EventArgs e)
+        {
+            AmbilightTimerInterval = ambilightInterval.Value;
+            AmbilightTimer.Change(AmbilightTimerDue, AmbilightTimerInterval);
+            label3.Text = "Ambilight Interval (ms): " + AmbilightTimerInterval;
+        }
     }
 
 }
