@@ -47,7 +47,7 @@ namespace ControlGuiLed
         // Serial port name
         public const string PORT_NAME = "COM3";
         private SerialPort _serialPort;
-        public BlockingCollection<byte[]> SerialWriteQueue = new BlockingCollection<byte[]>();
+        // public BlockingCollection<byte[]> SerialWriteQueue = new BlockingCollection<byte[]>();
 
         private Thread readThread;
         private Thread writeThread;
@@ -61,13 +61,13 @@ namespace ControlGuiLed
         // Start serial write and read Threads
         public void SerialStart()
         {
-            readThread = new Thread(Read);
+            readThread = new Thread(ReadT);
             readThread.Start();
-            writeThread = new Thread(Write);
-            writeThread.Start();
+            // writeThread = new Thread(WriteT);
+            // writeThread.Start();
         }
         // Read Thread method
-        public void Read()
+        public void ReadT()
         {
             while (true)
             {
@@ -230,7 +230,7 @@ namespace ControlGuiLed
             }
         }
         // Write thread method
-        public void Write()
+        /*private void WriteT()
         {
             while (true)
             {
@@ -239,6 +239,11 @@ namespace ControlGuiLed
                     _serialPort.Write(data, 0, data.Length);
 
             }
+        }*/
+        public void Write(byte[] data)
+        {
+            if (_serialPort.IsOpen)
+                _serialPort.Write(data, 0, data.Length);
         }
 
     }

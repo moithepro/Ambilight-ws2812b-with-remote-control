@@ -31,13 +31,11 @@ namespace ControlGuiLed
         // The bitmap's height
         private readonly int height;
 
-        /// 
-
+        /// <summary>
         /// Constructs a BmpPixelSnoop object, the bitmap
         /// object to be wraped is passed as a parameter.
-        /// 
-
-        /// The bitmap to snoop
+        /// </summary>
+        /// <param name="bitmap">The bitmap to snoop</param>
         public BmpPixelSnoop(Bitmap bitmap)
         {
             wrappedBitmap = bitmap ?? throw new ArgumentException("Bitmap parameter cannot be null", "bitmap");
@@ -61,7 +59,7 @@ namespace ControlGuiLed
             }
             catch (Exception ex)
             {
-                throw new InvalidOperationException("Could not lock bitmap, is it already being snooped somewhere else?", ex);
+                throw new System.InvalidOperationException("Could not lock bitmap, is it already being snooped somewhere else?", ex);
             }
 
             // Calculate number of bytes per pixel
@@ -76,23 +74,19 @@ namespace ControlGuiLed
             stride = data.Stride;
         }
 
-        /// 
-
+        /// <summary>
         /// Disposes BmpPixelSnoop object
-        /// 
-
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
-        /// 
-
+        /// <summary>
         /// Disposes BmpPixelSnoop object, we unlock
         /// the wrapped bitmap.
-        /// 
-
+        /// </summary>
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
@@ -103,35 +97,31 @@ namespace ControlGuiLed
             // free native resources if there are any.
         }
 
-        /// 
-
+        /// <summary>
         /// Calculate the pointer to a pixel at (x, x)
-        /// 
-
-        /// The pixel's x coordinate
-        /// The pixel's y coordinate
-        /// A byte* pointer to the pixel's data
+        /// </summary>
+        /// <param name="x">The pixel's x coordinate</param>
+        /// <param name="y">The pixel's y coordinate</param>
+        /// <returns>A byte* pointer to the pixel's data</returns>
         private byte* PixelPointer(int x, int y)
         {
             return scan0 + y * stride + x * depth;
         }
 
-        /// 
-
+        /// <summary>
         /// Snoop's implemetation of GetPixel() which is similar to
         /// Bitmap's GetPixel() but should be faster.
-        /// 
-
-        /// The pixel's x coordinate
-        /// The pixel's y coordinate
-        /// The pixel's colour
-        public System.Drawing.Color GetPixel(int x, int y)
+        /// </summary>
+        /// <param name="x">The pixel's x coordinate</param>
+        /// <param name="y">The pixel's y coordinate</param>
+        /// <returns>The pixel's colour</returns>
+        public byte[] GetPixel(int x, int y)
         {
             // Better do the 'decent thing' and bounds check x & y
-            if (x < 0 || y < 0 || x >= width || y >= width)
+            if (x < 0 || y < 0 || x >= width || y >= height)
                 throw new ArgumentException("x or y coordinate is out of range");
 
-            int a, r, g, b;
+            byte a, r, g, b;
 
             // Get a pointer to this pixel
             byte* p = PixelPointer(x, y);
@@ -142,23 +132,21 @@ namespace ControlGuiLed
             r = *p++;
             a = *p;
 
-            // And return a color value for it (this is quite slow
-            // but allows us to look like Bitmap.GetPixel())
-            return System.Drawing.Color.FromArgb(a, r, g, b);
+            // And return a color value for it, System.Drawing.Color is quite slow
+
+            return new byte[] { a, r, g, b };
         }
 
-        /// 
-
+        /// <summary>
         /// Sets the passed colour to the pixel at (x, y)
-        /// 
-
-        /// The pixel's x coordinate
-        /// The pixel's y coordinate
-        /// The value to be assigned to the pixel
+        /// </summary>
+        /// <param name="x">The pixel's x coordinate</param>
+        /// <param name="y">The pixel's y coordinate</param>
+        /// <param name="col">The value to be assigned to the pixel</param>
         public void SetPixel(int x, int y, System.Drawing.Color col)
         {
             // Better do the 'decent thing' and bounds check x & y
-            if (x < 0 || y < 0 || x >= width || y >= width)
+            if (x < 0 || y < 0 || x >= width || y >= height)
                 throw new ArgumentException("x or y coordinate is out of range");
 
             // Get a pointer to this pixel
@@ -171,11 +159,9 @@ namespace ControlGuiLed
             *p = col.A;
         }
 
-        /// 
-
+        /// <summary>
         /// The bitmap's width
-        /// 
-
+        /// </summary>
         public int Width { get { return width; } }
 
         // The bitmap's height

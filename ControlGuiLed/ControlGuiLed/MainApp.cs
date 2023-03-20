@@ -240,7 +240,7 @@ namespace ControlGuiLed
         {
             //if (ambilightTask == null || ambilightTask?.Status == TaskStatus.RanToCompletion) {
             //ambilightTask?.Dispose();
-            Color[] pixels = new Color[LedManager.LEDNUM];
+            byte[][] pixels = new byte[LedManager.LEDNUM][];
             //ambilightTask = Task.Run(() => {
             using (Bitmap image = ColorTools.GetImageFromScreen(new Rectangle(0, 0, division.Width, division.Height)))
             {
@@ -262,15 +262,15 @@ namespace ControlGuiLed
                                 for (int j = 0; j < ambilightRectangles[l].Height; j += 8)
                                 {
 
-                                    Color pixel = bmp.GetPixel(i + ambilightRectangles[l].Location.X, j + ambilightRectangles[l].Location.Y);
-                                    rSum += pixel.R;
-                                    gSum += pixel.G;
-                                    bSum += pixel.B;
+                                    byte[] pixel = bmp.GetPixel(i + ambilightRectangles[l].Location.X, j + ambilightRectangles[l].Location.Y);
+                                    rSum += pixel[1];
+                                    gSum += pixel[2];
+                                    bSum += pixel[3];
                                     num++;
                                 }
                             }
 
-                            pixels[l] = Color.FromArgb((int)(rSum / num), (int)(gSum / num), (int)(bSum / num));
+                            pixels[l] = new byte[] { ((byte)(rSum / num)), ((byte)(gSum / num)), ((byte)(bSum / num)) };
 
 
                         }

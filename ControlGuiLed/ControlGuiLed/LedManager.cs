@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,12 +27,12 @@ namespace ControlGuiLed
         public void WriteLedColorMode(Color color)
         {
             byte[] data = new byte[] { SerialManager.COLOR_RECV_CODE, ledBrightness, color.R, color.G, color.B };
-            _serialManager.SerialWriteQueue.Add(data);
+            _serialManager.Write(data);
         }
         public void WriteLedColorMode(Color color, byte brightness)
         {
             byte[] data = new byte[] { SerialManager.COLOR_RECV_CODE, brightness, color.R, color.G, color.B };
-            _serialManager.SerialWriteQueue.Add(data);
+            _serialManager.Write(data);
         }
 
         public void WriteLedDynamicMode(Color[] color)
@@ -47,7 +48,37 @@ namespace ControlGuiLed
                 data[i + 2] = color[j].B;
                 j++;
             }
-            _serialManager.SerialWriteQueue.Add(data);
+            _serialManager.Write(data);
+        }
+        public void WriteLedDynamicMode(byte[][] color)
+        {
+            byte[] data = new byte[LEDNUM * 3 + 2];
+            data[0] = SerialManager.DYNAMIC_RECV_CODE;
+            data[1] = ledBrightness;
+            int j = 0;
+            for (int i = 2; i < data.Length; i += 3)
+            {
+                data[i] = color[j][0];
+                data[i + 1] = color[j][1];
+                data[i + 2] = color[j][2];
+                j++;
+            }
+            _serialManager.Write(data);
+        }
+        public void WriteLedDynamicMode(byte[][] color, byte brightness)
+        {
+            byte[] data = new byte[LEDNUM * 3 + 2];
+            data[0] = SerialManager.DYNAMIC_RECV_CODE;
+            data[1] = brightness;
+            int j = 0;
+            for (int i = 2; i < data.Length; i += 3)
+            {
+                data[i] = color[j][0];
+                data[i + 1] = color[j][1];
+                data[i + 2] = color[j][2];
+                j++;
+            }
+            _serialManager.Write(data);
         }
         public void WriteLedDynamicMode(Color[] color, byte brightness)
         {
@@ -62,7 +93,7 @@ namespace ControlGuiLed
                 data[i + 2] = color[j].B;
                 j++;
             }
-            _serialManager.SerialWriteQueue.Add(data);
+            _serialManager.Write(data);
         }
     }
 }
