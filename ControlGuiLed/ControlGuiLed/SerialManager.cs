@@ -45,7 +45,7 @@ namespace ControlGuiLed
         public const byte OFF_RECV_CODE = 27;
         public const int BAUD_RATE = 500000;
         // Serial port name
-        public const string PORT_NAME = "COM3";
+        public string PortName;
         private SerialPort _serialPort;
         // public BlockingCollection<byte[]> SerialWriteQueue = new BlockingCollection<byte[]>();
 
@@ -55,8 +55,9 @@ namespace ControlGuiLed
 
         private MainApp mainApp;
 
-        public SerialManager(MainApp mainApp) {
+        public SerialManager(MainApp mainApp, String portName) { 
             this.mainApp = mainApp;
+            PortName = portName;
         }
         // Start serial write and read Threads
         public void SerialStart()
@@ -215,19 +216,51 @@ namespace ControlGuiLed
             {
                 try
                 {
-                    _serialPort = new SerialPort(PORT_NAME, BAUD_RATE);
+                    if (_serialPort != null && _serialPort.IsOpen)
+                    {
+                        _serialPort.Close();
+                    }
+                    _serialPort = new SerialPort(PortName, BAUD_RATE);
                     _serialPort.Handshake = Handshake.None;
 
                     _serialPort.Open();
                     mainApp.SetConnected(true);
                     break;
                 }
-                catch (IOException)
+                catch (IOException )
                 {
                     mainApp.SetConnected(false);
+                    
                 }
+                
                 Thread.Sleep(1000);
             }
+        }
+        
+        public static String[] GetSerialDevices() {
+            return SerialPort.GetPortNames();
+        }
+        public void SetSerialPort(String portName)
+        {
+            if (_serialPort != null && _serialPort.IsOpen)
+            {
+                _serialPort.Close();
+            }
+            
+            PortName = portName;
+
+            try
+            {
+                _serialPort = new SerialPort(PortName, BAUD_RATE);
+                _serialPort.Handshake = Handshake.None;
+                _serialPort.Open();
+                mainApp.SetConnected(true);
+            }
+            catch (IOException) {
+                mainApp.SetConnected(false);
+            }
+
+
         }
         // Write thread method
         /*private void WriteT()
@@ -242,7 +275,7 @@ namespace ControlGuiLed
         }*/
         public void Write(byte[] data)
         {
-            if (_serialPort.IsOpen)
+            if (_serialPort != null && _serialPort.IsOpen)
                 _serialPort.Write(data, 0, data.Length);
         }
 

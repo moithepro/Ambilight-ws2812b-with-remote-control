@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.IO.Ports;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace ControlGuiLed
 
     public partial class MainApp : Form
     {
-
+        public const string DEFAULT_SERIAL_PORT = "COM3";
         private int rainbowLastH = 0;
         private Rectangle[] ambilightRectangles;
         private LedMode ledMode = LedMode.Color;
@@ -45,10 +46,18 @@ namespace ControlGuiLed
         public MainApp()
         {
             InitializeComponent();
-            serialManager = new SerialManager(this);
+            String[] serialDevices = SerialManager.GetSerialDevices();
+            serialComboBox.Items.AddRange(serialDevices);
+            serialComboBox.SelectedIndex = 0;
+            if (serialDevices.Contains(DEFAULT_SERIAL_PORT)) {
+                serialComboBox.SelectedIndex = serialComboBox.Items.IndexOf(DEFAULT_SERIAL_PORT);
+            }
+            serialManager = new SerialManager(this, DEFAULT_SERIAL_PORT);
             ledManager = new LedManager(serialManager);
-
-
+            
+            
+            
+            
             panel1.BackColor = LedManager.OFF_COLOR;
             colorDialog1.Color = LedManager.OFF_COLOR;
             ContextMenu contextMenu = new ContextMenu();
@@ -397,6 +406,18 @@ namespace ControlGuiLed
             AmbilightTimerInterval = ambilightInterval.Value;
             AmbilightTimer.Change(AmbilightTimerDue, AmbilightTimerInterval);
             label3.Text = "Ambilight Interval (ms): " + AmbilightTimerInterval;
+        }
+
+        private void serialComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (serialManager != null)
+                serialManager.SetSerialPort(serialComboBox.SelectedItem.ToString());
+        }
+
+        private void serialComboBox_Click(object sender, EventArgs e)
+        {
+            serialComboBox.Items.Clear();
+            serialComboBox.Items.AddRange(SerialManager.GetSerialDevices());
         }
     }
 

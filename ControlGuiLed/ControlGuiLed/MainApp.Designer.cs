@@ -40,6 +40,8 @@
             this.ResetAudioB = new System.Windows.Forms.Button();
             this.ambilightInterval = new System.Windows.Forms.TrackBar();
             this.label3 = new System.Windows.Forms.Label();
+            this.serialComboBox = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.BrightnessBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ambilightInterval)).BeginInit();
             this.SuspendLayout();
@@ -56,7 +58,7 @@
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Location = new System.Drawing.Point(0, 45);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(102, 24);
             this.label1.TabIndex = 0;
@@ -71,7 +73,7 @@
             this.ColorButton.BackColor = System.Drawing.Color.LightGray;
             this.ColorButton.Dock = System.Windows.Forms.DockStyle.Top;
             this.ColorButton.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.ColorButton.Location = new System.Drawing.Point(0, 24);
+            this.ColorButton.Location = new System.Drawing.Point(0, 69);
             this.ColorButton.Name = "ColorButton";
             this.ColorButton.Size = new System.Drawing.Size(583, 56);
             this.ColorButton.TabIndex = 1;
@@ -83,7 +85,7 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.Red;
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 80);
+            this.panel1.Location = new System.Drawing.Point(0, 125);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(583, 52);
             this.panel1.TabIndex = 2;
@@ -92,7 +94,7 @@
             // 
             this.OffButton.BackColor = System.Drawing.Color.LightGray;
             this.OffButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.OffButton.Location = new System.Drawing.Point(0, 132);
+            this.OffButton.Location = new System.Drawing.Point(0, 177);
             this.OffButton.Name = "OffButton";
             this.OffButton.Size = new System.Drawing.Size(583, 54);
             this.OffButton.TabIndex = 3;
@@ -103,7 +105,7 @@
             // BrightnessBar
             // 
             this.BrightnessBar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.BrightnessBar.Location = new System.Drawing.Point(0, 199);
+            this.BrightnessBar.Location = new System.Drawing.Point(0, 244);
             this.BrightnessBar.Maximum = 255;
             this.BrightnessBar.Name = "BrightnessBar";
             this.BrightnessBar.Size = new System.Drawing.Size(583, 45);
@@ -115,7 +117,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label2.Location = new System.Drawing.Point(0, 186);
+            this.label2.Location = new System.Drawing.Point(0, 231);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(59, 13);
             this.label2.TabIndex = 4;
@@ -126,7 +128,7 @@
             this.RainbowButton.BackColor = System.Drawing.Color.LightGray;
             this.RainbowButton.Dock = System.Windows.Forms.DockStyle.Top;
             this.RainbowButton.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.RainbowButton.Location = new System.Drawing.Point(0, 244);
+            this.RainbowButton.Location = new System.Drawing.Point(0, 289);
             this.RainbowButton.Name = "RainbowButton";
             this.RainbowButton.Size = new System.Drawing.Size(583, 41);
             this.RainbowButton.TabIndex = 6;
@@ -139,7 +141,7 @@
             this.AmbilightButton.BackColor = System.Drawing.Color.LightGray;
             this.AmbilightButton.Dock = System.Windows.Forms.DockStyle.Top;
             this.AmbilightButton.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.AmbilightButton.Location = new System.Drawing.Point(0, 285);
+            this.AmbilightButton.Location = new System.Drawing.Point(0, 330);
             this.AmbilightButton.Name = "AmbilightButton";
             this.AmbilightButton.Size = new System.Drawing.Size(583, 41);
             this.AmbilightButton.TabIndex = 7;
@@ -151,7 +153,7 @@
             // 
             this.SpectogramButton.BackColor = System.Drawing.Color.LightGray;
             this.SpectogramButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.SpectogramButton.Location = new System.Drawing.Point(0, 384);
+            this.SpectogramButton.Location = new System.Drawing.Point(0, 429);
             this.SpectogramButton.Name = "SpectogramButton";
             this.SpectogramButton.Size = new System.Drawing.Size(583, 41);
             this.SpectogramButton.TabIndex = 8;
@@ -163,7 +165,7 @@
             // 
             this.PartyButton.BackColor = System.Drawing.Color.LightGray;
             this.PartyButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.PartyButton.Location = new System.Drawing.Point(0, 425);
+            this.PartyButton.Location = new System.Drawing.Point(0, 470);
             this.PartyButton.Name = "PartyButton";
             this.PartyButton.Size = new System.Drawing.Size(583, 41);
             this.PartyButton.TabIndex = 9;
@@ -174,7 +176,7 @@
             // ResetAudioB
             // 
             this.ResetAudioB.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ResetAudioB.Location = new System.Drawing.Point(0, 466);
+            this.ResetAudioB.Location = new System.Drawing.Point(0, 511);
             this.ResetAudioB.Name = "ResetAudioB";
             this.ResetAudioB.Size = new System.Drawing.Size(583, 42);
             this.ResetAudioB.TabIndex = 10;
@@ -185,7 +187,7 @@
             // ambilightInterval
             // 
             this.ambilightInterval.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ambilightInterval.Location = new System.Drawing.Point(0, 339);
+            this.ambilightInterval.Location = new System.Drawing.Point(0, 384);
             this.ambilightInterval.Maximum = 200;
             this.ambilightInterval.Name = "ambilightInterval";
             this.ambilightInterval.Size = new System.Drawing.Size(583, 45);
@@ -198,11 +200,33 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label3.Location = new System.Drawing.Point(0, 326);
+            this.label3.Location = new System.Drawing.Point(0, 371);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(127, 13);
             this.label3.TabIndex = 12;
             this.label3.Text = "Ambilight Interval (ms): 60";
+            // 
+            // serialComboBox
+            // 
+            this.serialComboBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.serialComboBox.FormattingEnabled = true;
+            this.serialComboBox.Location = new System.Drawing.Point(0, 24);
+            this.serialComboBox.Name = "serialComboBox";
+            this.serialComboBox.Size = new System.Drawing.Size(583, 21);
+            this.serialComboBox.TabIndex = 13;
+            this.serialComboBox.SelectedIndexChanged += new System.EventHandler(this.serialComboBox_SelectedIndexChanged);
+            this.serialComboBox.Click += new System.EventHandler(this.serialComboBox_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label4.Location = new System.Drawing.Point(0, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(100, 24);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "Serial Port:";
             // 
             // MainApp
             // 
@@ -210,7 +234,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(583, 515);
+            this.ClientSize = new System.Drawing.Size(583, 580);
             this.Controls.Add(this.ResetAudioB);
             this.Controls.Add(this.PartyButton);
             this.Controls.Add(this.SpectogramButton);
@@ -224,6 +248,8 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.ColorButton);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.serialComboBox);
+            this.Controls.Add(this.label4);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainApp";
             this.Text = "Control";
@@ -255,6 +281,8 @@
         private System.Windows.Forms.Button ResetAudioB;
         private System.Windows.Forms.TrackBar ambilightInterval;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox serialComboBox;
+        private System.Windows.Forms.Label label4;
     }
 }
 
