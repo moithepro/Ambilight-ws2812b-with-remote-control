@@ -28,7 +28,7 @@
   The Infrared Reciever Signal pin is connected to digital pin 7.
 ## Controlling the LEDs with a .NET program on the PC (Java port also avaliable but lacks some features.)
   Using a .NET Framework WinForm Application to Control the Leds in many ways (not only Ambilight).\
-  The LEDs are Controlled **by Serial Communication with a Buad Rate of 250000 with the Arduino** via the PC in 5 main ways.\
+  The LEDs are Controlled **by Serial Communication with a Buad Rate of 250000 (500000 with esp32) with the Arduino** via the PC in 5 main ways.\
   **Individual Colors** - Lets you Choose from a Color Palatte.\
   **Rainbow** - Changing Colors by continuously incrementing the hue property of the color.\
   **Party** - Continuously Changing Colors which is very cool lol :).\
