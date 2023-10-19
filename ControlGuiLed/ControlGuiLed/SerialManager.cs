@@ -217,8 +217,9 @@ namespace ControlGuiLed
                 {
                     _serialPort = new SerialPort(PORT_NAME, BAUD_RATE);
                     _serialPort.Handshake = Handshake.None;
-
+                    Console.WriteLine(_serialPort.IsOpen);
                     _serialPort.Open();
+                   
                     mainApp.SetConnected(true);
                     break;
                 }
