@@ -138,3 +138,15 @@ D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLed\ControlGuiLed\o
 D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLed\ControlGuiLed\obj\x64\Debug\ControlGuiLed.exe
 D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLed\ControlGuiLed\obj\x64\Debug\ControlGuiLed.pdb
 D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLed\ControlGuiLed\obj\x64\Debug\ControlGuiLed.MainApp.resources
+D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLed\ControlGuiLed\bin\x64\Debug\SharpDX.Direct3D11.dll
+D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLed\ControlGuiLed\bin\x64\Debug\SharpDX.dll
+D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLed\ControlGuiLed\bin\x64\Debug\SharpDX.DXGI.dll
+D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLed\ControlGuiLed\bin\x64\Debug\NAudio.Asio.xml
+D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLed\ControlGuiLed\bin\x64\Debug\NAudio.Core.xml
+D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLed\ControlGuiLed\bin\x64\Debug\NAudio.Wasapi.xml
+D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLed\ControlGuiLed\bin\x64\Debug\NAudio.WinMM.xml
+D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLed\ControlGuiLed\bin\x64\Debug\SharpDX.pdb
+D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLed\ControlGuiLed\bin\x64\Debug\SharpDX.Direct3D11.pdb
+D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLed\ControlGuiLed\bin\x64\Debug\SharpDX.Direct3D11.xml
+D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLed\ControlGuiLed\bin\x64\Debug\SharpDX.DXGI.pdb
+D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLed\ControlGuiLed\bin\x64\Debug\SharpDX.DXGI.xml

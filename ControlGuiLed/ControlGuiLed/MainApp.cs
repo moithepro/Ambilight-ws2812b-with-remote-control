@@ -39,6 +39,7 @@ namespace ControlGuiLed
         private UpdateTimer PartyTimer;
         private int PartyTimerInterval = 60;
 
+        private DirectXScreenCapture DirectXScreenCapture = null;
         private AutoResetEvent AmbilightTimerFinishedEvent = new AutoResetEvent(false);
         private SerialManager serialManager;
         private LedManager ledManager;
@@ -122,6 +123,9 @@ namespace ControlGuiLed
         }
         private void StopAllLedOperations()
         {
+            if (DirectXScreenCapture != null)
+                DirectXScreenCapture.Dispose();
+            DirectXScreenCapture = null;
             PartyTimer.Change(Timeout.Infinite, Timeout.Infinite);
             ColorTimer.Change(Timeout.Infinite, Timeout.Infinite);
             AmbilightTimerDue = Timeout.Infinite;
@@ -242,47 +246,36 @@ namespace ControlGuiLed
             //ambilightTask?.Dispose();
             byte[][] pixels = new byte[LedManager.LEDNUM][];
             //ambilightTask = Task.Run(() => {
-            using (Bitmap image = ColorTools.GetImageFromScreen(new Rectangle(0, 0, division.Width, division.Height)))
+
+
+
+            if(DirectXScreenCapture == null)
             {
-                if (image != null)
-                {
-
-
-                    using (BmpPixelSnoop bmp = new BmpPixelSnoop(image))
-                    {
-                        for (int l = 0; l < ambilightRectangles.Length; l++)
-                        {
-
-                            long rSum = 0;
-                            long gSum = 0;
-                            long bSum = 0;
-                            int num = 0;
-                            for (int i = 0; i < ambilightRectangles[l].Width; i += 8)
-                            {
-                                for (int j = 0; j < ambilightRectangles[l].Height; j += 8)
-                                {
-
-                                    byte[] pixel = bmp.GetPixel(i + ambilightRectangles[l].Location.X, j + ambilightRectangles[l].Location.Y);
-                                    rSum += pixel[1];
-                                    gSum += pixel[2];
-                                    bSum += pixel[3];
-                                    num++;
-                                }
-                            }
-
-                            pixels[l] = new byte[] { ((byte)(rSum / num)), ((byte)(gSum / num)), ((byte)(bSum / num)) };
-
-
-                        }
-                    }
-
-
-
-
-                }
-                AmbilightTimerFinishedEvent.Set();
+                DirectXScreenCapture = new DirectXScreenCapture();
             }
+            for (int l = 0; l < ambilightRectangles.Length; l++)
+            {
 
+                long rSum = 0;
+                long gSum = 0;
+                long bSum = 0;
+                int num = 0;
+                byte[,,] partialImage = DirectXScreenCapture.CaptureScreenRegion(ambilightRectangles[l].Location.X, ambilightRectangles[l].Location.Y, ambilightRectangles[l].Width, ambilightRectangles[l].Height);
+                for (int i = 0; i < ambilightRectangles[l].Width; i += 8)
+                {
+                    for (int j = 0; j < ambilightRectangles[l].Height; j += 8)
+                    {
+                        rSum += partialImage[j, i, 2];
+                        gSum += partialImage[j, i, 1];
+                        bSum += partialImage[j, i, 0];
+                        num++;
+                    }
+                }
+
+                pixels[l] = new byte[] { ((byte)(rSum / num)), ((byte)(gSum / num)), ((byte)(bSum / num)) };
+
+
+            }
 
             //Invoke(new Action(() => {
             if (spectogramBrightness)
@@ -298,6 +291,8 @@ namespace ControlGuiLed
             //});
 
             //}
+
+            AmbilightTimerFinishedEvent.Set();
         }
 
 
@@ -314,6 +309,7 @@ namespace ControlGuiLed
         private void AmbilightButton_Click(object sender, EventArgs e)
         {
             StopAllLedOperations();
+            DirectXScreenCapture = new DirectXScreenCapture();
             AmbilightTimerDue = 0;
             AmbilightTimer.Change(AmbilightTimerDue, AmbilightTimerInterval);
             ledMode = LedMode.Ambilight;

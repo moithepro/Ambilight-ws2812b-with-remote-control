@@ -20,12 +20,39 @@ public class DirectXScreenCapture : IDisposable
 
     private void Initialize()
     {
-        var factory = new Factory1();
-        var adapter = factory.GetAdapter1(0);
-        var output = adapter.GetOutput(0);
-        var output1 = output.QueryInterface<Output1>();
+        // Create factory and adapter
+        using (var factory = new Factory1())
+        {
+            var adapter = factory.GetAdapter1(0);
+            var output = adapter.GetOutput(0);
+            var output1 = output.QueryInterface<Output1>();
 
-        device = new SharpDX.Direct3D11.Device(adapter);
+            // Create the Direct3D11 device
+            device = new SharpDX.Direct3D11.Device(adapter, DeviceCreationFlags.BgraSupport);
+
+            // Ensure the device is compatible with the output
+            if (output1.Description.DesktopBounds.Right == 0 || output1.Description.DesktopBounds.Bottom == 0)
+            {
+                throw new InvalidOperationException("Output has invalid desktop bounds.");
+            }
+
+            // Attempt to duplicate the output
+            try
+            {
+                outputDuplication = output1.DuplicateOutput(device);
+            }
+            catch (SharpDXException ex)
+            {
+                if (ex.ResultCode == Result.InvalidArg)
+                {
+                    throw new InvalidOperationException("Failed to duplicate output. Invalid arguments provided.", ex);
+                }
+                else
+                {
+                    throw;
+                }
+            }
+        }
     }
 
     private void CreateScreenTexture(int width, int height)
@@ -48,7 +75,7 @@ public class DirectXScreenCapture : IDisposable
         screenTexture = new Texture2D(device, textureDesc);
     }
 
-    public byte[][][] CaptureScreenRegion(int x, int y, int width, int height)
+    public byte[,,] CaptureScreenRegion(int x, int y, int width, int height)
     {
         var factory = new Factory1();
         var adapter = factory.GetAdapter1(0);
@@ -68,22 +95,20 @@ public class DirectXScreenCapture : IDisposable
             device.ImmediateContext.CopySubresourceRegion(screenTexture2D, 0, region, screenTexture, 0);
             var dataBox = device.ImmediateContext.MapSubresource(screenTexture, 0, MapMode.Read, SharpDX.Direct3D11.MapFlags.None);
 
-            byte[][][] imageData = new byte[height][][];
+            byte[,,] imageData = new byte[height, width, 4];
 
             var sourcePtr = dataBox.DataPointer;
             int rowPitch = dataBox.RowPitch;
 
             for (int row = 0; row < height; row++)
             {
-                imageData[row] = new byte[width][];
                 for (int col = 0; col < width; col++)
                 {
                     int pixelIndex = col * 4;
-                    imageData[row][col] = new byte[4];
-                    imageData[row][col][0] = Marshal.ReadByte(sourcePtr, pixelIndex);     // Blue
-                    imageData[row][col][1] = Marshal.ReadByte(sourcePtr, pixelIndex + 1); // Green
-                    imageData[row][col][2] = Marshal.ReadByte(sourcePtr, pixelIndex + 2); // Red
-                    imageData[row][col][3] = Marshal.ReadByte(sourcePtr, pixelIndex + 3); // Alpha
+                    imageData[row, col, 0] = Marshal.ReadByte(sourcePtr, pixelIndex);     // Blue
+                    imageData[row, col, 1] = Marshal.ReadByte(sourcePtr, pixelIndex + 1); // Green
+                    imageData[row, col, 2] = Marshal.ReadByte(sourcePtr, pixelIndex + 2); // Red
+                    imageData[row, col, 3] = Marshal.ReadByte(sourcePtr, pixelIndex + 3); // Alpha
                 }
                 sourcePtr = IntPtr.Add(sourcePtr, rowPitch);
             }
