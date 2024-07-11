@@ -12,6 +12,8 @@
   <ItemGroup>
     <PackageReference Include="Haukcode.HighResolutionTimer" Version="1.1.0" />
     <PackageReference Include="NAudio" Version="2.2.1" />
+    <PackageReference Include="ScreenCapture.NET" Version="2.0.4" />
+    <PackageReference Include="ScreenCapture.NET.DX11" Version="2.0.4" />
     <PackageReference Include="System.IO.Ports" Version="8.0.0" />
   </ItemGroup>
 

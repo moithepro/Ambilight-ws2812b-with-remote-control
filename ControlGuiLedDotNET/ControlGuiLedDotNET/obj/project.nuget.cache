@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "olQ7h9wDQP8pOvDWWkENgEkatm3gDXb0p7XRYeDP+tgITsiSkKLwrH0ZJ9TlgsGx5WGrrAaq/RYUsJMJmag68g==",
+  "dgSpecHash": "Wl1jivjfJTC3kbIhld7A5YNrhHex1KVYDLaNUn1deeDS3FAvwEwT3p9yGvGlfzNCEL7cARjAwYRX1uWG+h6dHA==",
   "success": true,
   "projectFilePath": "D:\\Documents\\Ambilight-ws2812b-with-remote-control\\ControlGuiLedDotNET\\ControlGuiLedDotNET\\ControlGuiLedDotNET.csproj",
   "expectedPackageFiles": [
@@ -14,15 +14,24 @@
     "C:\\Users\\mayta\\.nuget\\packages\\naudio.wasapi\\2.2.1\\naudio.wasapi.2.2.1.nupkg.sha512",
     "C:\\Users\\mayta\\.nuget\\packages\\naudio.winforms\\2.2.1\\naudio.winforms.2.2.1.nupkg.sha512",
     "C:\\Users\\mayta\\.nuget\\packages\\naudio.winmm\\2.2.1\\naudio.winmm.2.2.1.nupkg.sha512",
+    "C:\\Users\\mayta\\.nuget\\packages\\polysharp\\1.10.0\\polysharp.1.10.0.nupkg.sha512",
     "C:\\Users\\mayta\\.nuget\\packages\\runtime.linux-arm.runtime.native.system.io.ports\\8.0.0\\runtime.linux-arm.runtime.native.system.io.ports.8.0.0.nupkg.sha512",
     "C:\\Users\\mayta\\.nuget\\packages\\runtime.linux-arm64.runtime.native.system.io.ports\\8.0.0\\runtime.linux-arm64.runtime.native.system.io.ports.8.0.0.nupkg.sha512",
     "C:\\Users\\mayta\\.nuget\\packages\\runtime.linux-x64.runtime.native.system.io.ports\\8.0.0\\runtime.linux-x64.runtime.native.system.io.ports.8.0.0.nupkg.sha512",
     "C:\\Users\\mayta\\.nuget\\packages\\runtime.native.system.io.ports\\8.0.0\\runtime.native.system.io.ports.8.0.0.nupkg.sha512",
     "C:\\Users\\mayta\\.nuget\\packages\\runtime.osx-arm64.runtime.native.system.io.ports\\8.0.0\\runtime.osx-arm64.runtime.native.system.io.ports.8.0.0.nupkg.sha512",
     "C:\\Users\\mayta\\.nuget\\packages\\runtime.osx-x64.runtime.native.system.io.ports\\8.0.0\\runtime.osx-x64.runtime.native.system.io.ports.8.0.0.nupkg.sha512",
+    "C:\\Users\\mayta\\.nuget\\packages\\screencapture.net\\2.0.4\\screencapture.net.2.0.4.nupkg.sha512",
+    "C:\\Users\\mayta\\.nuget\\packages\\screencapture.net.dx11\\2.0.4\\screencapture.net.dx11.2.0.4.nupkg.sha512",
+    "C:\\Users\\mayta\\.nuget\\packages\\sharpgen.runtime\\2.0.0-beta.13\\sharpgen.runtime.2.0.0-beta.13.nupkg.sha512",
+    "C:\\Users\\mayta\\.nuget\\packages\\sharpgen.runtime.com\\2.0.0-beta.13\\sharpgen.runtime.com.2.0.0-beta.13.nupkg.sha512",
     "C:\\Users\\mayta\\.nuget\\packages\\system.io.ports\\8.0.0\\system.io.ports.8.0.0.nupkg.sha512",
     "C:\\Users\\mayta\\.nuget\\packages\\system.security.accesscontrol\\4.7.0\\system.security.accesscontrol.4.7.0.nupkg.sha512",
-    "C:\\Users\\mayta\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512"
+    "C:\\Users\\mayta\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512",
+    "C:\\Users\\mayta\\.nuget\\packages\\vortice.direct3d11\\3.2.0\\vortice.direct3d11.3.2.0.nupkg.sha512",
+    "C:\\Users\\mayta\\.nuget\\packages\\vortice.directx\\3.2.0\\vortice.directx.3.2.0.nupkg.sha512",
+    "C:\\Users\\mayta\\.nuget\\packages\\vortice.dxgi\\3.2.0\\vortice.dxgi.3.2.0.nupkg.sha512",
+    "C:\\Users\\mayta\\.nuget\\packages\\vortice.mathematics\\1.5.2\\vortice.mathematics.1.5.2.nupkg.sha512"
   ],
   "logs": []
 }

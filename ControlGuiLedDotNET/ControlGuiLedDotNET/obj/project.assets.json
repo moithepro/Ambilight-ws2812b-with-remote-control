@@ -166,6 +166,12 @@
           }
         }
       },
+      "PolySharp/1.10.0": {
+        "type": "package",
+        "build": {
+          "buildTransitive/PolySharp.targets": {}
+        }
+      },
       "runtime.linux-arm.runtime.native.System.IO.Ports/8.0.0": {
         "type": "package",
         "runtimeTargets": {
@@ -219,6 +225,73 @@
             "assetType": "native",
             "rid": "osx-x64"
           }
+        }
+      },
+      "ScreenCapture.NET/2.0.4": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/ScreenCapture.NET.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/ScreenCapture.NET.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "ScreenCapture.NET.DX11/2.0.4": {
+        "type": "package",
+        "dependencies": {
+          "ScreenCapture.NET": "2.0.4",
+          "Vortice.Direct3D11": "3.2.0"
+        },
+        "compile": {
+          "lib/net6.0/ScreenCapture.NET.DX11.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/ScreenCapture.NET.DX11.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "SharpGen.Runtime/2.0.0-beta.13": {
+        "type": "package",
+        "dependencies": {
+          "PolySharp": "1.10.0"
+        },
+        "compile": {
+          "lib/net6.0/SharpGen.Runtime.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/SharpGen.Runtime.dll": {}
+        },
+        "build": {
+          "build/_._": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/_._": {}
+        }
+      },
+      "SharpGen.Runtime.COM/2.0.0-beta.13": {
+        "type": "package",
+        "dependencies": {
+          "PolySharp": "1.10.0",
+          "SharpGen.Runtime": "2.0.0-beta.13"
+        },
+        "compile": {
+          "lib/net6.0/SharpGen.Runtime.COM.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/SharpGen.Runtime.COM.dll": {}
+        },
+        "build": {
+          "build/_._": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/_._": {}
         }
       },
       "System.IO.Ports/8.0.0": {
@@ -293,6 +366,93 @@
           "runtimes/win/lib/netcoreapp2.1/System.Security.Principal.Windows.dll": {
             "assetType": "runtime",
             "rid": "win"
+          }
+        }
+      },
+      "Vortice.Direct3D11/3.2.0": {
+        "type": "package",
+        "dependencies": {
+          "SharpGen.Runtime": "2.0.0-beta.13",
+          "SharpGen.Runtime.COM": "2.0.0-beta.13",
+          "Vortice.DXGI": "3.2.0",
+          "Vortice.Mathematics": "1.5.2"
+        },
+        "compile": {
+          "lib/net6.0/Vortice.Direct3D11.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Vortice.Direct3D11.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "build": {
+          "build/_._": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/_._": {}
+        }
+      },
+      "Vortice.DirectX/3.2.0": {
+        "type": "package",
+        "dependencies": {
+          "SharpGen.Runtime": "2.0.0-beta.13",
+          "SharpGen.Runtime.COM": "2.0.0-beta.13",
+          "Vortice.Mathematics": "1.5.2"
+        },
+        "compile": {
+          "lib/net6.0/Vortice.DirectX.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Vortice.DirectX.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "build": {
+          "build/_._": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/_._": {}
+        }
+      },
+      "Vortice.DXGI/3.2.0": {
+        "type": "package",
+        "dependencies": {
+          "SharpGen.Runtime": "2.0.0-beta.13",
+          "SharpGen.Runtime.COM": "2.0.0-beta.13",
+          "Vortice.DirectX": "3.2.0",
+          "Vortice.Mathematics": "1.5.2"
+        },
+        "compile": {
+          "lib/net6.0/Vortice.DXGI.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Vortice.DXGI.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "build": {
+          "build/_._": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/_._": {}
+        }
+      },
+      "Vortice.Mathematics/1.5.2": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/Vortice.Mathematics.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Vortice.Mathematics.dll": {
+            "related": ".pdb;.xml"
           }
         }
       }
@@ -485,6 +645,23 @@
         "naudio.winmm.nuspec"
       ]
     },
+    "PolySharp/1.10.0": {
+      "sha512": "+uNyVhhKOskjJLKOwIQ2qGaA0T507FaMbz5RwLAtmRaMaTAcUAZAiZvSk4Z8z6GkmqOyO1zryYNXmO0Vh7IrYQ==",
+      "type": "package",
+      "path": "polysharp/1.10.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "analyzers/dotnet/cs/PolySharp.SourceGenerators.dll",
+        "analyzers/dotnet/cs/PolySharp.SourceGenerators.xml",
+        "build/PolySharp.targets",
+        "buildTransitive/PolySharp.targets",
+        "icon.png",
+        "polysharp.1.10.0.nupkg.sha512",
+        "polysharp.nuspec"
+      ]
+    },
     "runtime.linux-arm.runtime.native.System.IO.Ports/8.0.0": {
       "sha512": "gK720fg6HemDg8sXcfy+xCMZ9+hF78Gc7BmREbmkS4noqlu1BAr9qZtuWGhLzFjBfgecmdtl4+SYVwJ1VneZBQ==",
       "type": "package",
@@ -578,6 +755,84 @@
         "runtime.osx-x64.runtime.native.system.io.ports.nuspec",
         "runtimes/osx-x64/native/libSystem.IO.Ports.Native.dylib",
         "useSharedDesignerContext.txt"
+      ]
+    },
+    "ScreenCapture.NET/2.0.4": {
+      "sha512": "Vu+culKceK/jIv4CmrECjU1zSHqWHL+QkjuOVViNToUQzS4iAubOvTBcIjfZE2rDQOXF0KjeD7qOxlGq4SLj5g==",
+      "type": "package",
+      "path": "screencapture.net/2.0.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "lib/net6.0/ScreenCapture.NET.dll",
+        "lib/net6.0/ScreenCapture.NET.xml",
+        "lib/net7.0/ScreenCapture.NET.dll",
+        "lib/net7.0/ScreenCapture.NET.xml",
+        "lib/net8.0/ScreenCapture.NET.dll",
+        "lib/net8.0/ScreenCapture.NET.xml",
+        "screencapture.net.2.0.4.nupkg.sha512",
+        "screencapture.net.nuspec"
+      ]
+    },
+    "ScreenCapture.NET.DX11/2.0.4": {
+      "sha512": "FovIKQn5eD+zboa1msiV7pqZ97yQq0Jd7r0O9+IEdbGK2R3cVZJ8ndWqDgPQYnT98wLrEFbf31lzqRdNe4dMrQ==",
+      "type": "package",
+      "path": "screencapture.net.dx11/2.0.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "lib/net6.0/ScreenCapture.NET.DX11.dll",
+        "lib/net6.0/ScreenCapture.NET.DX11.xml",
+        "lib/net7.0/ScreenCapture.NET.DX11.dll",
+        "lib/net7.0/ScreenCapture.NET.DX11.xml",
+        "lib/net8.0/ScreenCapture.NET.DX11.dll",
+        "lib/net8.0/ScreenCapture.NET.DX11.xml",
+        "screencapture.net.dx11.2.0.4.nupkg.sha512",
+        "screencapture.net.dx11.nuspec"
+      ]
+    },
+    "SharpGen.Runtime/2.0.0-beta.13": {
+      "sha512": "H+Up2Er3ptWzcQ+CAO652fEsBLAmoXqKqtvc/6ycRV9XfLN2XJch0h8CwKQ3muD6eADPFf8Xp+nDQ8wDpcRDlg==",
+      "type": "package",
+      "path": "sharpgen.runtime/2.0.0-beta.13",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/Mapping.xml",
+        "build/SharpGen.Runtime.props",
+        "buildMultiTargeting/SharpGen.Runtime.props",
+        "lib/net461/SharpGen.Runtime.dll",
+        "lib/net471/SharpGen.Runtime.dll",
+        "lib/net6.0/SharpGen.Runtime.dll",
+        "lib/net7.0/SharpGen.Runtime.dll",
+        "lib/netcoreapp3.1/SharpGen.Runtime.dll",
+        "lib/netstandard2.0/SharpGen.Runtime.dll",
+        "lib/netstandard2.1/SharpGen.Runtime.dll",
+        "sharpgen.runtime.2.0.0-beta.13.nupkg.sha512",
+        "sharpgen.runtime.nuspec"
+      ]
+    },
+    "SharpGen.Runtime.COM/2.0.0-beta.13": {
+      "sha512": "H22LsE3XTIOevf2TJgPgPnfYmjMlCtN+QYZVxzXlgTrgG2jHSTUTKZpIMPbKliLJGCEnDfX6yvBJvya0/xRTkA==",
+      "type": "package",
+      "path": "sharpgen.runtime.com/2.0.0-beta.13",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/SharpGen.Runtime.COM.BindMapping.xml",
+        "build/SharpGen.Runtime.COM.props",
+        "buildMultiTargeting/SharpGen.Runtime.COM.props",
+        "lib/net461/SharpGen.Runtime.COM.dll",
+        "lib/net471/SharpGen.Runtime.COM.dll",
+        "lib/net6.0/SharpGen.Runtime.COM.dll",
+        "lib/net7.0/SharpGen.Runtime.COM.dll",
+        "lib/netcoreapp3.1/SharpGen.Runtime.COM.dll",
+        "lib/netstandard2.0/SharpGen.Runtime.COM.dll",
+        "lib/netstandard2.1/SharpGen.Runtime.COM.dll",
+        "sharpgen.runtime.com.2.0.0-beta.13.nupkg.sha512",
+        "sharpgen.runtime.com.nuspec"
       ]
     },
     "System.IO.Ports/8.0.0": {
@@ -721,12 +976,100 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "Vortice.Direct3D11/3.2.0": {
+      "sha512": "BGeaLUXIty564H+QgynR5FH3su6UxKEY8RPVQtMxVVPj2f0PNryaFjVQ0JJJhaEkg6G2/7VF/8tizQZy/DkF9g==",
+      "type": "package",
+      "path": "vortice.direct3d11/3.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/Vortice.Direct3D11.BindMapping.xml",
+        "build/Vortice.Direct3D11.props",
+        "buildMultiTargeting/Vortice.Direct3D11.props",
+        "lib/net6.0/Vortice.Direct3D11.dll",
+        "lib/net6.0/Vortice.Direct3D11.pdb",
+        "lib/net6.0/Vortice.Direct3D11.xml",
+        "lib/net7.0/Vortice.Direct3D11.dll",
+        "lib/net7.0/Vortice.Direct3D11.pdb",
+        "lib/net7.0/Vortice.Direct3D11.xml",
+        "vortice.direct3d11.3.2.0.nupkg.sha512",
+        "vortice.direct3d11.nuspec"
+      ]
+    },
+    "Vortice.DirectX/3.2.0": {
+      "sha512": "VvLoA3OMwy8XhsWtP5mO7LWS8mTysPaU9fvAzIJTdatW7TaC7GgA2kpanpbvHSysuJF/O5c9rB7IBukFP4v0aw==",
+      "type": "package",
+      "path": "vortice.directx/3.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/Vortice.DirectX.BindMapping.xml",
+        "build/Vortice.DirectX.props",
+        "buildMultiTargeting/Vortice.DirectX.props",
+        "lib/net6.0/Vortice.DirectX.dll",
+        "lib/net6.0/Vortice.DirectX.pdb",
+        "lib/net6.0/Vortice.DirectX.xml",
+        "lib/net7.0-windows10.0.19041/Vortice.DirectX.dll",
+        "lib/net7.0-windows10.0.19041/Vortice.DirectX.pdb",
+        "lib/net7.0-windows10.0.19041/Vortice.DirectX.xml",
+        "lib/net7.0/Vortice.DirectX.dll",
+        "lib/net7.0/Vortice.DirectX.pdb",
+        "lib/net7.0/Vortice.DirectX.xml",
+        "vortice.directx.3.2.0.nupkg.sha512",
+        "vortice.directx.nuspec"
+      ]
+    },
+    "Vortice.DXGI/3.2.0": {
+      "sha512": "vx0z23UGxpLfYELK9P2HTalcoMd8etqmJzKfU2Ho88e+s4pAtQrUythotpYZ41zS/9cbOo25HhRAXljVmjPTuw==",
+      "type": "package",
+      "path": "vortice.dxgi/3.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/Vortice.DXGI.BindMapping.xml",
+        "build/Vortice.DXGI.props",
+        "buildMultiTargeting/Vortice.DXGI.props",
+        "lib/net6.0/Vortice.DXGI.dll",
+        "lib/net6.0/Vortice.DXGI.pdb",
+        "lib/net6.0/Vortice.DXGI.xml",
+        "lib/net7.0-windows10.0.19041/Vortice.DXGI.dll",
+        "lib/net7.0-windows10.0.19041/Vortice.DXGI.pdb",
+        "lib/net7.0-windows10.0.19041/Vortice.DXGI.xml",
+        "lib/net7.0/Vortice.DXGI.dll",
+        "lib/net7.0/Vortice.DXGI.pdb",
+        "lib/net7.0/Vortice.DXGI.xml",
+        "vortice.dxgi.3.2.0.nupkg.sha512",
+        "vortice.dxgi.nuspec"
+      ]
+    },
+    "Vortice.Mathematics/1.5.2": {
+      "sha512": "kf/h6LTSCYB3Ii9mFOqQj8843nPkqGt/aYSRreIWB4BZzpXE2RNKLrJqh+7DaPRwr9qu1f28aRaxfOgeXxtKjw==",
+      "type": "package",
+      "path": "vortice.mathematics/1.5.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net6.0/Vortice.Mathematics.dll",
+        "lib/net6.0/Vortice.Mathematics.pdb",
+        "lib/net6.0/Vortice.Mathematics.xml",
+        "lib/net7.0-windows10.0.19041/Vortice.Mathematics.dll",
+        "lib/net7.0-windows10.0.19041/Vortice.Mathematics.pdb",
+        "lib/net7.0-windows10.0.19041/Vortice.Mathematics.xml",
+        "lib/net7.0/Vortice.Mathematics.dll",
+        "lib/net7.0/Vortice.Mathematics.pdb",
+        "lib/net7.0/Vortice.Mathematics.xml",
+        "vortice.mathematics.1.5.2.nupkg.sha512",
+        "vortice.mathematics.nuspec"
+      ]
     }
   },
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
       "Haukcode.HighResolutionTimer >= 1.1.0",
       "NAudio >= 2.2.1",
+      "ScreenCapture.NET >= 2.0.4",
+      "ScreenCapture.NET.DX11 >= 2.0.4",
       "System.IO.Ports >= 8.0.0"
     ]
   },
@@ -782,6 +1125,14 @@
           "NAudio": {
             "target": "Package",
             "version": "[2.2.1, )"
+          },
+          "ScreenCapture.NET": {
+            "target": "Package",
+            "version": "[2.0.4, )"
+          },
+          "ScreenCapture.NET.DX11": {
+            "target": "Package",
+            "version": "[2.0.4, )"
           },
           "System.IO.Ports": {
             "target": "Package",

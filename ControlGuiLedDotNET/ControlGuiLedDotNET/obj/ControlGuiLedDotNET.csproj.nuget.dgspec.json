@@ -53,6 +53,14 @@
               "target": "Package",
               "version": "[2.2.1, )"
             },
+            "ScreenCapture.NET": {
+              "target": "Package",
+              "version": "[2.0.4, )"
+            },
+            "ScreenCapture.NET.DX11": {
+              "target": "Package",
+              "version": "[2.0.4, )"
+            },
             "System.IO.Ports": {
               "target": "Package",
               "version": "[8.0.0, )"

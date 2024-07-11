@@ -1,5 +1,6 @@
 ﻿
 using NAudio.CoreAudioApi;
+using ScreenCapture.NET;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -39,6 +40,7 @@ namespace ControlGuiLed
         private int ColorTimerInterval = 40;
         private UpdateTimer PartyTimer;
         private int PartyTimerInterval = 60;
+        private DirectXScreenCapture screenCapture;
 
         private AutoResetEvent AmbilightTimerFinishedEvent = new AutoResetEvent(false);
         private SerialManager serialManager;
@@ -48,7 +50,7 @@ namespace ControlGuiLed
             InitializeComponent();
             serialManager = new SerialManager(this);
             ledManager = new LedManager(serialManager);
-
+            screenCapture = new DirectXScreenCapture();
 
             panel1.BackColor = LedManager.OFF_COLOR;
             colorDialog1.Color = LedManager.OFF_COLOR;
@@ -244,46 +246,34 @@ namespace ControlGuiLed
             //ambilightTask?.Dispose();
             byte[][] pixels = new byte[LedManager.LEDNUM][];
             //ambilightTask = Task.Run(() => {
-            using (Bitmap image = ColorTools.GetImageFromScreen(new Rectangle(0, 0, division.Width, division.Height)))
+
+            IImage image = screenCapture.CaptureScreenRegion();
+            for (int l = 0; l < ambilightRectangles.Length; l++)
             {
-                if (image != null)
+
+                long rSum = 0;
+                long gSum = 0;
+                long bSum = 0;
+                int num = 0;
+                for (int i = 0; i < ambilightRectangles[l].Width; i += 8)
                 {
-
-
-                    using (BmpPixelSnoop bmp = new BmpPixelSnoop(image))
+                    for (int j = 0; j < ambilightRectangles[l].Height; j += 8)
                     {
-                        for (int l = 0; l < ambilightRectangles.Length; l++)
-                        {
 
-                            long rSum = 0;
-                            long gSum = 0;
-                            long bSum = 0;
-                            int num = 0;
-                            for (int i = 0; i < ambilightRectangles[l].Width; i += 8)
-                            {
-                                for (int j = 0; j < ambilightRectangles[l].Height; j += 8)
-                                {
-
-                                    byte[] pixel = bmp.GetPixel(i + ambilightRectangles[l].Location.X, j + ambilightRectangles[l].Location.Y);
-                                    rSum += pixel[1];
-                                    gSum += pixel[2];
-                                    bSum += pixel[3];
-                                    num++;
-                                }
-                            }
-
-                            pixels[l] = new byte[] { ((byte)(rSum / num)), ((byte)(gSum / num)), ((byte)(bSum / num)) };
-
-
-                        }
+                        rSum += image[ambilightRectangles[l].Location.X + i, ambilightRectangles[l].Location.Y + j].R;
+                        gSum += image[ambilightRectangles[l].Location.X + i, ambilightRectangles[l].Location.Y + j].G;
+                        bSum += image[ambilightRectangles[l].Location.X + i, ambilightRectangles[l].Location.Y + j].B;
+                        num++;
                     }
-
-
-
-
                 }
-                AmbilightTimerFinishedEvent.Set();
+
+                pixels[l] = new byte[] { ((byte)(rSum / num)), ((byte)(gSum / num)), ((byte)(bSum / num)) };
+
+
             }
+
+            AmbilightTimerFinishedEvent.Set();
+
 
 
             //Invoke(new Action(() => {

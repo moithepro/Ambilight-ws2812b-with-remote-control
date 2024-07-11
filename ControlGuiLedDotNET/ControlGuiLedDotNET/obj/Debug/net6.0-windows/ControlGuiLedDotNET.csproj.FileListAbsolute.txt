@@ -32,3 +32,11 @@ D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLedDotNET\ControlGu
 D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLedDotNET\ControlGuiLedDotNET\obj\Debug\net6.0-windows\ControlGuiLedDotNET.genruntimeconfig.cache
 D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLedDotNET\ControlGuiLedDotNET\obj\Debug\net6.0-windows\ref\ControlGuiLedDotNET.dll
 D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLedDotNET\ControlGuiLedDotNET\bin\Debug\net6.0-windows\HighResolutionTimer.dll
+D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLedDotNET\ControlGuiLedDotNET\bin\Debug\net6.0-windows\ScreenCapture.NET.dll
+D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLedDotNET\ControlGuiLedDotNET\bin\Debug\net6.0-windows\ScreenCapture.NET.DX11.dll
+D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLedDotNET\ControlGuiLedDotNET\bin\Debug\net6.0-windows\SharpGen.Runtime.dll
+D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLedDotNET\ControlGuiLedDotNET\bin\Debug\net6.0-windows\SharpGen.Runtime.COM.dll
+D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLedDotNET\ControlGuiLedDotNET\bin\Debug\net6.0-windows\Vortice.Direct3D11.dll
+D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLedDotNET\ControlGuiLedDotNET\bin\Debug\net6.0-windows\Vortice.DirectX.dll
+D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLedDotNET\ControlGuiLedDotNET\bin\Debug\net6.0-windows\Vortice.DXGI.dll
+D:\Documents\Ambilight-ws2812b-with-remote-control\ControlGuiLedDotNET\ControlGuiLedDotNET\bin\Debug\net6.0-windows\Vortice.Mathematics.dll
