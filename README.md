@@ -1,57 +1,58 @@
-# Ambilight-ws2812b-with-remote-control  
 
-## ws2812b Ambilight + remote control for LEDs and PC
-  This repository is dedicated to document this project I made for my PC setup.
-### Items used:
-  **• Arduino Uno. (Can work with any Microcontroller.)\
-  • 178 cm of 100 LEDs/m 5v ws2812b LED Strips (178 LEDs Total).\
-  • 40A 5v Power Supply (to power the LEDs).\
-  • KY-022 Infrared Reciever.\
-  • 330 Ω Resistor\
-  • And a lot of wires...**
+# Ambilight WS2812B with Remote Control
 
+## Overview
+This repository documents a project integrating WS2812B LEDs with remote control functionality for an enhanced PC setup experience.
 
+## Components Used
+- **Arduino Uno (or any compatible microcontroller)**
+- **178 cm of WS2812B LED strips, with 100 LEDs/m (178 LEDs in total)**
+- **5V 40A power supply (to power the LEDs)**
+- **KY-022 infrared receiver**
+- **330Ω resistor**
+- **Wiring and connectors as necessary**
 
-### The project has **3** main targets:
-  **Controlling the LEDs with a .NET program on the PC.**\
-  **Controlling the PC with a remote control**\
-  **Controlling the LEDs with a remote control.**
+## Project Objectives
+The project is designed to achieve the following three main objectives:
+1. **LED control via a .NET application on the PC**
+2. **PC control using a remote control**
+3. **LED control using a remote control**
 
-### Circuit Diagram:
-  Below is the circuit diagram:
+## Circuit Diagram
+The circuit diagram is provided below for reference:
 
+![Arduino Circuit Diagram](https://user-images.githubusercontent.com/52801196/142697124-293a43a1-f6bc-4373-9697-7a915990cf32.png)
+![Image](https://user-images.githubusercontent.com/52801196/142697209-36e55328-3a04-44e8-b19c-15cb57b13161.png)
 
-  ![Arduino-diagram](https://user-images.githubusercontent.com/52801196/142697124-293a43a1-f6bc-4373-9697-7a915990cf32.png)
-  ![image](https://user-images.githubusercontent.com/52801196/142697209-36e55328-3a04-44e8-b19c-15cb57b13161.png)
+### Key Connections:
+- **LED Strip**: Data pin connected to digital pin 5 via a 330Ω resistor.
+- **Infrared Receiver**: Signal pin connected to digital pin 7.
 
-  The LED Strip data pin is connected to digital pin 5 with a 330 ohm Resistor.\
-  The Infrared Reciever Signal pin is connected to digital pin 7.
-## Controlling the LEDs with a .NET program on the PC (Java port also avaliable but lacks some features.)
-  Using a .NET Framework WinForm Application to Control the Leds in many ways (not only Ambilight).\
-  The LEDs are Controlled **by Serial Communication with a Buad Rate of 250000 (500000 with esp32) with the Arduino** via the PC in 5 main ways.\
-  **Individual Colors** - Lets you Choose from a Color Palatte.\
-  **Rainbow** - Changing Colors by continuously incrementing the hue property of the color.\
-  **Party** - Continuously Changing Colors which is very cool lol :).\
-  **Ambilight** - Taking screen pixel data to change the LEDs to colors displayed on the screen. (Best Mode).\
-  **Spectogram** - Taking audio device audio level to update the LEDs Brightness According to the current Level (Reset sound device option). \
-   \
-  **Turbo** - Lowering LEDs Update times so it will update faster. (May cause flickering due to hardware limitations)\
-  **There is also a Brightness slider Control**
+## Controlling LEDs via a .NET Program (Java port also available with limited features)
+The LED control is managed through a .NET Framework WinForm application, which provides various methods of control beyond just Ambilight. Communication between the PC and Arduino is handled via serial communication, with a baud rate of 250,000 (500,000 for ESP32). The control modes include:
 
-## Controlling the PC with a remote control
-  The same .NET Application also checks for the Arduino Serial Port data and sends various keystrokes to the PC.
+- **Individual Colors**: Choose from a color palette.
+- **Rainbow Mode**: Continuously change colors by adjusting the hue.
+- **Party Mode**: A dynamic, continuously changing color mode.
+- **Ambilight**: Screen pixel data is used to update the LEDs to match the colors on the display. This is the most impressive mode.
+- **Spectrogram Mode**: Adjusts the LED brightness based on the audio levels from the system’s audio device. (A reset option for the sound device is available.)
+  
+Additional features include:
+- **Turbo Mode**: Reduces LED update times for faster responsiveness, though this may cause flickering due to hardware limitations.
+- **Brightness Control**: Adjustable via a slider in the application.
 
-## Controlling the LEDs with a remote control.
-Pressing The "ON" button on the LED remote controls enables only the remote control to control the led.\
-Controls include brightness control and color setting.
+## Controlling the PC via Remote Control
+The .NET application can also read data from the Arduino’s serial port, which allows the remote control to trigger various PC keystrokes.
 
-## Supporting me:
-The best way you can support me is by checking for bugs and suggesting new features.
+## Controlling the LEDs via Remote Control
+By pressing the "ON" button on the LED remote, control of the LEDs is transferred exclusively to the remote. Functions include brightness adjustment and color selection.
+
+## Supporting the Project
+The best way to support this project is by reporting bugs and suggesting new features.
 
 ## Photos
-![IMG_20211016_213444](https://user-images.githubusercontent.com/52801196/142470433-9fb1de0c-5dad-4057-ae4c-f377d217943b.jpg)
-The remote controls:\
-![1637258300903](https://user-images.githubusercontent.com/52801196/142470793-93cb5baa-1b1a-4918-9836-f59e4a962d59.jpg)
-![IMG_20211019_174302](https://user-images.githubusercontent.com/52801196/142471346-73e1c083-9f02-43fc-befa-3472a0947fdf.jpg)
+Here are some images showcasing the setup and the remote controls:
 
-
+![Project Setup](https://user-images.githubusercontent.com/52801196/142470433-9fb1de0c-5dad-4057-ae4c-f377d217943b.jpg)
+![Remote Controls](https://user-images.githubusercontent.com/52801196/142470793-93cb5baa-1b1a-4918-9836-f59e4a962d59.jpg)
+![Setup Detail](https://user-images.githubusercontent.com/52801196/142471346-73e1c083-9f02-43fc-befa-3472a0947fdf.jpg)
