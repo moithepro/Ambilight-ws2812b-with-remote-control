@@ -28,7 +28,7 @@ public sealed class LedApplicationController : IDisposable
     private readonly RainbowEffect _rainbowEffect;
     private readonly PartyEffect _partyEffect;
     private readonly AmbilightEffect _ambilightEffect;
-    private readonly IAmbilightFrameProvider _ambilightFrameProvider;
+    private readonly SwitchableAmbilightFrameProvider _ambilightFrameProvider;
     private readonly ILedOutput _output;
 
     private LedMode _mode = LedMode.Off;
@@ -46,7 +46,7 @@ public sealed class LedApplicationController : IDisposable
         RainbowEffect rainbowEffect,
         PartyEffect partyEffect,
         AmbilightEffect ambilightEffect,
-        IAmbilightFrameProvider ambilightFrameProvider)
+        SwitchableAmbilightFrameProvider ambilightFrameProvider)
     {
         _serialConnection = serialConnection;
         _scheduler = scheduler;
@@ -86,6 +86,19 @@ public sealed class LedApplicationController : IDisposable
     }
 
     public LedMode Mode => _mode;
+
+    public AmbilightCaptureMethod SelectedAmbilightCaptureMethod =>
+        _ambilightFrameProvider.Method;
+
+    public void SelectAmbilightCaptureMethod(AmbilightCaptureMethod method)
+    {
+        if (_disposed)
+        {
+            return;
+        }
+
+        _ambilightFrameProvider.SelectMethod(method);
+    }
 
     public byte Brightness
     {
@@ -208,11 +221,7 @@ public sealed class LedApplicationController : IDisposable
         _serialConnection.Dispose();
         _scheduler.Dispose();
         _brightnessProvider.Dispose();
-
-        if (_ambilightFrameProvider is IDisposable disposableFrameProvider)
-        {
-            disposableFrameProvider.Dispose();
-        }
+        _ambilightFrameProvider.Dispose();
     }
 
     public void Dispose() => Shutdown();

@@ -1,4 +1,5 @@
 using System.Drawing;
+using ControlGuiLed.Ambilight;
 using ControlGuiLed.App;
 
 namespace ControlGuiLed;
@@ -8,6 +9,7 @@ public sealed partial class MainForm : Form
     private readonly LedApplicationController _controller;
     private bool _exitRequested;
     private bool _updatingSerialPortList;
+    private bool _updatingAmbilightCaptureList;
 
     public MainForm(LedApplicationController controller)
     {
@@ -20,6 +22,7 @@ public sealed partial class MainForm : Form
         notifyIcon.Visible = true;
 
         RefreshSerialPortList();
+        InitializeAmbilightCaptureList();
 
         brightnessTrackBar.Value = Math.Clamp(
             _controller.Brightness,
@@ -118,6 +121,44 @@ public sealed partial class MainForm : Form
 
         _controller.SelectSerialPort(port);
         UpdateSerialPortLabel();
+    }
+
+    private void InitializeAmbilightCaptureList()
+    {
+        var currentMethod = _controller.SelectedAmbilightCaptureMethod;
+        var options = new AmbilightCaptureOption[]
+        {
+            new(AmbilightCaptureMethod.DirectX, "DirectX 11"),
+            new(AmbilightCaptureMethod.Gdi, "GDI (screen copy)"),
+        };
+
+        var selectedIndex = Array.FindIndex(options, option => option.Method == currentMethod);
+
+        _updatingAmbilightCaptureList = true;
+        try
+        {
+            ambilightCaptureComboBox.BeginUpdate();
+            ambilightCaptureComboBox.Items.Clear();
+            ambilightCaptureComboBox.Items.AddRange(options);
+            ambilightCaptureComboBox.SelectedIndex = selectedIndex >= 0 ? selectedIndex : 0;
+        }
+        finally
+        {
+            ambilightCaptureComboBox.EndUpdate();
+            _updatingAmbilightCaptureList = false;
+        }
+    }
+
+    private void ambilightCaptureComboBox_SelectedIndexChanged(object? sender, EventArgs e)
+    {
+        if (_updatingAmbilightCaptureList
+            || ambilightCaptureComboBox.SelectedItem is not AmbilightCaptureOption option
+            || option.Method == _controller.SelectedAmbilightCaptureMethod)
+        {
+            return;
+        }
+
+        _controller.SelectAmbilightCaptureMethod(option.Method);
     }
 
     private void OnConnectionChanged(object? sender, bool connected)
@@ -266,5 +307,12 @@ public sealed partial class MainForm : Form
         _controller.Shutdown();
         notifyIcon.Visible = false;
         Application.Exit();
+    }
+
+    private sealed record AmbilightCaptureOption(
+        AmbilightCaptureMethod Method,
+        string DisplayName)
+    {
+        public override string ToString() => DisplayName;
     }
 }

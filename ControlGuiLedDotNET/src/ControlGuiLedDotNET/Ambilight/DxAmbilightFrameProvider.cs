@@ -13,34 +13,52 @@ public sealed class DxAmbilightFrameProvider : IAmbilightFrameProvider, IDisposa
 
     public DxAmbilightFrameProvider()
     {
-        _captureService = new DX11ScreenCaptureService();
+        var captureService = new DX11ScreenCaptureService();
+        IScreenCapture? screenCapture = null;
 
-        var graphicsCards = _captureService.GetGraphicsCards().ToArray();
-        if (graphicsCards.Length == 0)
+        try
         {
-            throw new InvalidOperationException("No graphics card is available for screen capture.");
-        }
+            var graphicsCards = captureService.GetGraphicsCards().ToArray();
+            if (graphicsCards.Length == 0)
+            {
+                throw new InvalidOperationException("No graphics card is available for screen capture.");
+            }
 
-        var displays = _captureService.GetDisplays(graphicsCards[0]).ToArray();
-        if (displays.Length == 0)
+            var displays = captureService.GetDisplays(graphicsCards[0]).ToArray();
+            if (displays.Length == 0)
+            {
+                throw new InvalidOperationException("No display is available for screen capture.");
+            }
+
+            var display = displays[0];
+
+            screenCapture = ((IScreenCaptureService)captureService).GetScreenCapture(display);
+
+            // The sampling regions use screen coordinates, so the captured
+            // image must stay at full resolution. Any downscaling would make
+            // the region coordinates refer to the wrong pixels.
+            var captureZone = screenCapture.RegisterCaptureZone(
+                0,
+                0,
+                display.Width,
+                display.Height,
+                downscaleLevel: 0);
+            _regions = ScreenRegionLayout.Create(new Size(display.Width, display.Height));
+
+            _captureService = captureService;
+            _screenCapture = screenCapture;
+            _captureZone = captureZone;
+        }
+        catch
         {
-            throw new InvalidOperationException("No display is available for screen capture.");
+            if (screenCapture is IDisposable disposableCapture)
+            {
+                disposableCapture.Dispose();
+            }
+
+            captureService.Dispose();
+            throw;
         }
-
-        var display = displays[0];
-
-        _screenCapture = ((IScreenCaptureService)_captureService).GetScreenCapture(display);
-
-        // The sampling regions use screen coordinates, so the captured image
-        // must stay at full resolution. Any downscaling would make the region
-        // coordinates refer to the wrong pixels.
-        _captureZone = _screenCapture.RegisterCaptureZone(
-            0,
-            0,
-            display.Width,
-            display.Height,
-            downscaleLevel: 0);
-        _regions = ScreenRegionLayout.Create(new Size(display.Width, display.Height));
     }
 
     public IReadOnlyList<Rgb> CaptureFrame()

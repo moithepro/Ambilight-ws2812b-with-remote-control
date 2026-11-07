@@ -33,6 +33,8 @@ partial class MainForm
         ambilightButton = new Button();
         ambilightIntervalLabel = new Label();
         ambilightIntervalTrackBar = new TrackBar();
+        ambilightCaptureLabel = new Label();
+        ambilightCaptureComboBox = new ComboBox();
         soundReactiveButton = new Button();
         partyButton = new Button();
         resetAudioButton = new Button();
@@ -61,14 +63,16 @@ partial class MainForm
         rootLayout.Controls.Add(ambilightButton, 0, 9);
         rootLayout.Controls.Add(ambilightIntervalLabel, 0, 10);
         rootLayout.Controls.Add(ambilightIntervalTrackBar, 0, 11);
-        rootLayout.Controls.Add(soundReactiveButton, 0, 12);
-        rootLayout.Controls.Add(partyButton, 0, 13);
-        rootLayout.Controls.Add(resetAudioButton, 0, 14);
+        rootLayout.Controls.Add(ambilightCaptureLabel, 0, 12);
+        rootLayout.Controls.Add(ambilightCaptureComboBox, 0, 13);
+        rootLayout.Controls.Add(soundReactiveButton, 0, 14);
+        rootLayout.Controls.Add(partyButton, 0, 15);
+        rootLayout.Controls.Add(resetAudioButton, 0, 16);
         rootLayout.Dock = DockStyle.Fill;
         rootLayout.Location = new Point(0, 0);
         rootLayout.Name = "rootLayout";
         rootLayout.Padding = new Padding(8);
-        rootLayout.RowCount = 15;
+        rootLayout.RowCount = 17;
         rootLayout.RowStyles.Add(new RowStyle());
         rootLayout.RowStyles.Add(new RowStyle());
         rootLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
@@ -81,10 +85,12 @@ partial class MainForm
         rootLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 44F));
         rootLayout.RowStyles.Add(new RowStyle());
         rootLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
+        rootLayout.RowStyles.Add(new RowStyle());
+        rootLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
         rootLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 44F));
         rootLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 44F));
         rootLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 44F));
-        rootLayout.Size = new Size(680, 650);
+        rootLayout.Size = new Size(680, 700);
         rootLayout.TabIndex = 0;
         // 
         // statusLabel
@@ -236,15 +242,38 @@ partial class MainForm
         ambilightIntervalTrackBar.Value = 10;
         ambilightIntervalTrackBar.ValueChanged += ambilightIntervalTrackBar_ValueChanged;
         // 
+        // ambilightCaptureLabel
+        // 
+        ambilightCaptureLabel.Anchor = AnchorStyles.Left;
+        ambilightCaptureLabel.AutoSize = true;
+        ambilightCaptureLabel.Location = new Point(12, 474);
+        ambilightCaptureLabel.Margin = new Padding(4, 6, 4, 0);
+        ambilightCaptureLabel.Name = "ambilightCaptureLabel";
+        ambilightCaptureLabel.Size = new Size(106, 15);
+        ambilightCaptureLabel.TabIndex = 12;
+        ambilightCaptureLabel.Text = "Ambilight capture:";
+        // 
+        // ambilightCaptureComboBox
+        // 
+        ambilightCaptureComboBox.Dock = DockStyle.Fill;
+        ambilightCaptureComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+        ambilightCaptureComboBox.FormattingEnabled = true;
+        ambilightCaptureComboBox.Location = new Point(12, 492);
+        ambilightCaptureComboBox.Margin = new Padding(4, 3, 4, 3);
+        ambilightCaptureComboBox.Name = "ambilightCaptureComboBox";
+        ambilightCaptureComboBox.Size = new Size(656, 23);
+        ambilightCaptureComboBox.TabIndex = 13;
+        ambilightCaptureComboBox.SelectedIndexChanged += ambilightCaptureComboBox_SelectedIndexChanged;
+        // 
         // soundReactiveButton
         // 
         soundReactiveButton.BackColor = Color.LightGray;
         soundReactiveButton.Dock = DockStyle.Fill;
-        soundReactiveButton.Location = new Point(12, 471);
+        soundReactiveButton.Location = new Point(12, 524);
         soundReactiveButton.Margin = new Padding(4, 3, 4, 3);
         soundReactiveButton.Name = "soundReactiveButton";
         soundReactiveButton.Size = new Size(656, 38);
-        soundReactiveButton.TabIndex = 12;
+        soundReactiveButton.TabIndex = 14;
         soundReactiveButton.Text = "Sound Reactive (Spectrogram)";
         soundReactiveButton.UseVisualStyleBackColor = false;
         soundReactiveButton.Click += soundReactiveButton_Click;
@@ -253,11 +282,11 @@ partial class MainForm
         // 
         partyButton.BackColor = Color.LightGray;
         partyButton.Dock = DockStyle.Fill;
-        partyButton.Location = new Point(12, 515);
+        partyButton.Location = new Point(12, 568);
         partyButton.Margin = new Padding(4, 3, 4, 3);
         partyButton.Name = "partyButton";
         partyButton.Size = new Size(656, 38);
-        partyButton.TabIndex = 13;
+        partyButton.TabIndex = 15;
         partyButton.Text = "Party";
         partyButton.UseVisualStyleBackColor = false;
         partyButton.Click += partyButton_Click;
@@ -265,11 +294,11 @@ partial class MainForm
         // resetAudioButton
         // 
         resetAudioButton.Dock = DockStyle.Fill;
-        resetAudioButton.Location = new Point(12, 559);
+        resetAudioButton.Location = new Point(12, 612);
         resetAudioButton.Margin = new Padding(4, 3, 4, 3);
         resetAudioButton.Name = "resetAudioButton";
-        resetAudioButton.Size = new Size(656, 80);
-        resetAudioButton.TabIndex = 14;
+        resetAudioButton.Size = new Size(656, 77);
+        resetAudioButton.TabIndex = 16;
         resetAudioButton.Text = "Reset Sound Device";
         resetAudioButton.UseVisualStyleBackColor = true;
         resetAudioButton.Click += resetAudioButton_Click;
@@ -297,7 +326,7 @@ partial class MainForm
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(680, 650);
+        ClientSize = new Size(680, 700);
         Controls.Add(rootLayout);
         FormBorderStyle = FormBorderStyle.FixedSingle;
         MaximizeBox = false;
@@ -326,6 +355,8 @@ partial class MainForm
     private Button ambilightButton;
     private Label ambilightIntervalLabel;
     private TrackBar ambilightIntervalTrackBar;
+    private Label ambilightCaptureLabel;
+    private ComboBox ambilightCaptureComboBox;
     private Button soundReactiveButton;
     private Button partyButton;
     private Button resetAudioButton;

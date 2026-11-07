@@ -9,8 +9,8 @@ turns remote-control button presses into PC keyboard shortcuts.
 - [.NET 10 SDK](https://dotnet.microsoft.com/) (tested with 10.0.403)
 - A controller running the matching firmware
   (`generic_controller_led_esp32` or the Arduino sketch)
-- A serial port for the controller at **500000 baud**
-  (selectable in the app; `COM3` is the default)
+- A serial port for the controller at **500000 baud** (the configured default
+  is preselected, and any available port can be chosen in the app)
 
 ## Build and run
 
@@ -27,6 +27,12 @@ The **Serial port** drop-down lists the ports currently available on the PC
 and reconnects immediately when the selection changes. The list is refreshed
 each time the drop-down is opened, so devices plugged in later appear without
 restarting the app.
+
+The **Ambilight capture** drop-down switches between **GDI (screen copy)**
+(the default) and **DirectX 11**. The GDI path is the original non-DirectX
+implementation and works when DXGI desktop duplication is unavailable, for
+example in some virtual machines or remote sessions. It is slower than the
+DirectX path. The change takes effect on the next Ambilight frame.
 
 ## Configuration
 
@@ -45,7 +51,7 @@ App/AppComposition.cs          Wires the object graph
 App/LedApplicationController   Use cases: modes, brightness, shutdown
 App/MainForm.*                 UI and tray behaviour only
 Effects/                       Color, Rainbow, Party and Ambilight effects
-Ambilight/                     DX11 capture, region layout, frame sampling
+Ambilight/                     DX11/GDI capture, provider switch, region layout, sampling
 Audio/                         WASAPI peak level for sound-reactive brightness
 Input/                         Remote key -> SendInput keyboard mapping
 Led/                           Protocol encoding, LED output, HSV math

@@ -20,7 +20,8 @@ internal static class AppComposition
         var brightnessProvider = new LedBrightnessProvider(
             new WasapiAudioLevelSource(),
             LedDeviceSettings.DefaultBrightness);
-        var ambilightFrameProvider = new DxAmbilightFrameProvider();
+        var ambilightFrameProvider = new SwitchableAmbilightFrameProvider(
+            AmbilightCaptureMethod.Gdi);
 
         return new LedApplicationController(
             serialConnection,
