@@ -9,7 +9,8 @@ turns remote-control button presses into PC keyboard shortcuts.
 - [.NET 10 SDK](https://dotnet.microsoft.com/) (tested with 10.0.403)
 - A controller running the matching firmware
   (`generic_controller_led_esp32` or the Arduino sketch)
-- A serial port available as `COM3` at **500000 baud**
+- A serial port for the controller at **500000 baud**
+  (selectable in the app; `COM3` is the default)
 
 ## Build and run
 
@@ -22,11 +23,16 @@ The application starts hidden in the notification area. Left-click the tray
 icon to show or hide the window; use **Exit** in the tray menu to quit. The app
 turns the LEDs off on exit.
 
+The **Serial port** drop-down lists the ports currently available on the PC
+and reconnects immediately when the selection changes. The list is refreshed
+each time the drop-down is opened, so devices plugged in later appear without
+restarting the app.
+
 ## Configuration
 
 | Setting | Location |
 | --- | --- |
-| Serial port and baud rate | `Led/LedDeviceSettings.cs` |
+| Default serial port and baud rate | `Led/LedDeviceSettings.cs` |
 | LED count (178) | `Led/LedDeviceSettings.cs` |
 | Default brightness | `Led/LedDeviceSettings.cs` |
 | Screen sampling regions | `Ambilight/ScreenRegionLayout.cs` |
@@ -43,7 +49,7 @@ Ambilight/                     DX11 capture, region layout, frame sampling
 Audio/                         WASAPI peak level for sound-reactive brightness
 Input/                         Remote key -> SendInput keyboard mapping
 Led/                           Protocol encoding, LED output, HSV math
-Serial/                        Serial connection, reconnect and key decoding
+Serial/                        Port catalog, connection, reconnect, key decoding
 Timing/                        High-resolution effect scheduler
 ```
 

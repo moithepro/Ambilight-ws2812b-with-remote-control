@@ -7,6 +7,7 @@ public sealed partial class MainForm : Form
 {
     private readonly LedApplicationController _controller;
     private bool _exitRequested;
+    private bool _updatingSerialPortList;
 
     public MainForm(LedApplicationController controller)
     {
@@ -17,6 +18,8 @@ public sealed partial class MainForm : Form
         Icon = appIcon;
         notifyIcon.Icon = appIcon;
         notifyIcon.Visible = true;
+
+        RefreshSerialPortList();
 
         brightnessTrackBar.Value = Math.Clamp(
             _controller.Brightness,
@@ -59,6 +62,62 @@ public sealed partial class MainForm : Form
     {
         using var stream = typeof(MainForm).Assembly.GetManifestResourceStream("ControlGuiLed.Icon.ico");
         return stream is not null ? new Icon(stream) : SystemIcons.Application;
+    }
+
+    private void RefreshSerialPortList()
+    {
+        var ports = _controller.GetAvailableSerialPorts().ToList();
+        var currentPort = _controller.SerialPortName;
+
+        if (!ports.Contains(currentPort, StringComparer.OrdinalIgnoreCase))
+        {
+            ports.Add(currentPort);
+        }
+
+        ports.Sort(StringComparer.OrdinalIgnoreCase);
+
+        var selectedIndex = ports.FindIndex(port =>
+            string.Equals(port, currentPort, StringComparison.OrdinalIgnoreCase));
+
+        _updatingSerialPortList = true;
+        try
+        {
+            serialPortComboBox.BeginUpdate();
+            serialPortComboBox.Items.Clear();
+            serialPortComboBox.Items.AddRange(ports.Cast<object>().ToArray());
+            serialPortComboBox.SelectedIndex = selectedIndex >= 0 ? selectedIndex : 0;
+        }
+        finally
+        {
+            serialPortComboBox.EndUpdate();
+            _updatingSerialPortList = false;
+        }
+
+        UpdateSerialPortLabel();
+    }
+
+    private void UpdateSerialPortLabel()
+    {
+        serialPortLabel.Text = $"Serial port: {_controller.SerialPortName}";
+    }
+
+    private void serialPortComboBox_DropDown(object? sender, EventArgs e) =>
+        RefreshSerialPortList();
+
+    private void serialPortComboBox_SelectedIndexChanged(object? sender, EventArgs e)
+    {
+        if (_updatingSerialPortList || serialPortComboBox.SelectedItem is not string port)
+        {
+            return;
+        }
+
+        if (string.Equals(port, _controller.SerialPortName, StringComparison.OrdinalIgnoreCase))
+        {
+            return;
+        }
+
+        _controller.SelectSerialPort(port);
+        UpdateSerialPortLabel();
     }
 
     private void OnConnectionChanged(object? sender, bool connected)

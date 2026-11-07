@@ -12,18 +12,22 @@ public sealed class SerialConnection : IDisposable
     private static readonly TimeSpan ReconnectDelay = TimeSpan.FromSeconds(1);
     private static readonly TimeSpan DisposeTimeout = TimeSpan.FromSeconds(2);
 
-    private readonly string _portName;
     private readonly int _baudRate;
     private readonly Lock _writeLock = new();
     private readonly CancellationTokenSource _cancellation = new();
 
+    private string _portName;
     private SerialPort? _port;
     private Task? _connectionTask;
+    private int _connectionVersion;
     private volatile bool _isConnected;
     private bool _disposed;
 
     public SerialConnection(string portName, int baudRate)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(portName);
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(baudRate);
+
         _portName = portName;
         _baudRate = baudRate;
     }
@@ -33,6 +37,39 @@ public sealed class SerialConnection : IDisposable
     public event EventHandler<RemoteKey>? RemoteKeyReceived;
 
     public bool IsConnected => _isConnected;
+
+    public string PortName
+    {
+        get
+        {
+            lock (_writeLock)
+            {
+                return _portName;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Changes the port and reconnects. The current connection is closed so
+    /// that the connection loop immediately starts over with the new name.
+    /// </summary>
+    public void ChangePort(string portName)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(portName);
+        ObjectDisposedException.ThrowIf(_disposed, this);
+
+        lock (_writeLock)
+        {
+            if (string.Equals(_portName, portName, StringComparison.OrdinalIgnoreCase))
+            {
+                return;
+            }
+
+            _portName = portName;
+            _connectionVersion++;
+            CloseCurrentPort();
+        }
+    }
 
     public void Start()
     {
@@ -72,16 +109,7 @@ public sealed class SerialConnection : IDisposable
 
         lock (_writeLock)
         {
-            try
-            {
-                _port?.Close();
-            }
-            catch (Exception exception) when (IsRecoverable(exception))
-            {
-                Debug.WriteLine($"Serial close failed: {exception.Message}");
-            }
-
-            _port = null;
+            CloseCurrentPort();
         }
 
         try
@@ -101,10 +129,18 @@ public sealed class SerialConnection : IDisposable
         while (!cancellationToken.IsCancellationRequested)
         {
             SerialPort? port = null;
+            string portName;
+            int connectionVersion;
+
+            lock (_writeLock)
+            {
+                portName = _portName;
+                connectionVersion = _connectionVersion;
+            }
 
             try
             {
-                port = new SerialPort(_portName, _baudRate)
+                port = new SerialPort(portName, _baudRate)
                 {
                     Handshake = Handshake.None,
                     ReadTimeout = SerialPort.InfiniteTimeout,
@@ -113,9 +149,20 @@ public sealed class SerialConnection : IDisposable
 
                 port.Open();
 
+                var isCurrentConnection = false;
                 lock (_writeLock)
                 {
-                    _port = port;
+                    if (connectionVersion == _connectionVersion)
+                    {
+                        _port = port;
+                        isCurrentConnection = true;
+                    }
+                }
+
+                if (!isCurrentConnection)
+                {
+                    // The port changed while this attempt was opening.
+                    continue;
                 }
 
                 SetConnected(true);
@@ -177,6 +224,21 @@ public sealed class SerialConnection : IDisposable
                 }
             }
         }
+    }
+
+    // Must be called while _writeLock is held.
+    private void CloseCurrentPort()
+    {
+        try
+        {
+            _port?.Close();
+        }
+        catch (Exception exception) when (IsRecoverable(exception))
+        {
+            Debug.WriteLine($"Serial close failed: {exception.Message}");
+        }
+
+        _port = null;
     }
 
     private void SetConnected(bool connected)

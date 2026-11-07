@@ -71,6 +71,20 @@ public sealed class LedApplicationController : IDisposable
 
     public bool IsConnected => _serialConnection.IsConnected;
 
+    public string SerialPortName => _serialConnection.PortName;
+
+    public IReadOnlyList<string> GetAvailableSerialPorts() => SerialPortCatalog.GetAvailablePorts();
+
+    public void SelectSerialPort(string portName)
+    {
+        if (_disposed)
+        {
+            return;
+        }
+
+        _serialConnection.ChangePort(portName);
+    }
+
     public LedMode Mode => _mode;
 
     public byte Brightness
