@@ -30,12 +30,16 @@ public sealed class DxAmbilightFrameProvider : IAmbilightFrameProvider, IDisposa
         var display = displays[0];
 
         _screenCapture = ((IScreenCaptureService)_captureService).GetScreenCapture(display);
+
+        // The sampling regions use screen coordinates, so the captured image
+        // must stay at full resolution. Any downscaling would make the region
+        // coordinates refer to the wrong pixels.
         _captureZone = _screenCapture.RegisterCaptureZone(
             0,
             0,
             display.Width,
             display.Height,
-            downscaleLevel: 1);
+            downscaleLevel: 0);
         _regions = ScreenRegionLayout.Create(new Size(display.Width, display.Height));
     }
 

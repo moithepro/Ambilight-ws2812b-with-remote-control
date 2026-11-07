@@ -9,6 +9,6 @@ public static class LedDeviceSettings
     public const int LedCount = (2 * HorizontalEdgeRegionCount) + (2 * VerticalEdgeRegionCount);
 
     public const int BaudRate = 500_000;
-    public const string PortName = "COM3";
+    public const string PortName = "COM4";
     public const byte DefaultBrightness = 200;
 }
