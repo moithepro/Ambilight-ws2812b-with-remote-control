@@ -55,8 +55,9 @@ dotnet run --project src/ControlGuiLedDotNET
 The LED control is managed through a .NET 10 WinForms tray application, which
 provides various methods of control beyond just Ambilight. Communication
 between the PC and the controller is handled via serial communication, with a
-baud rate of 250,000 on Arduino and 500,000 on ESP32. The COM port can be
-selected from a drop-down in the application. The control modes include:
+baud rate of 250,000 on Arduino and 500,000 on ESP32. The COM port and the
+Ambilight capture backend (DirectX 11 or GDI screen copy) can be selected from
+drop-downs in the application. The control modes include:
 
 - **Individual Colors**: Choose from a color palette.
 - **Rainbow Mode**: Continuously change colors by adjusting the hue.
