@@ -5,7 +5,7 @@
 This repository documents a project integrating WS2812B LEDs with remote control functionality for an enhanced PC setup experience.
 
 ## Components Used
-- **Arduino Uno (or any compatible microcontroller)**
+- **Arduino Uno or ESP32 (any compatible microcontroller)**
 - **178 cm of WS2812B LED strips, with 100 LEDs/m (178 LEDs in total)**
 - **5V 40A power supply (to power the LEDs)**
 - **KY-022 infrared receiver**
@@ -25,11 +25,37 @@ The circuit diagram is provided below for reference:
 ![Image](https://user-images.githubusercontent.com/52801196/142697209-36e55328-3a04-44e8-b19c-15cb57b13161.png)
 
 ### Key Connections:
-- **LED Strip**: Data pin connected to digital pin 5 via a 330Ω resistor.
-- **Infrared Receiver**: Signal pin connected to digital pin 7.
+- **LED Strip (Arduino)**: Data pin connected to digital pin 5 via a 330Ω resistor.
+- **Infrared Receiver (Arduino)**: Signal pin connected to digital pin 7.
+- **ESP32**: LED data on GPIO 27 and IR receiver on GPIO 12 (configurable in
+  `generic_controller_led_esp32/include/Config.h`).
+
+## Repository Layout
+- `generic_controller_led/` — original Arduino sketch.
+- `generic_controller_led_esp32/` — ESP32 PlatformIO firmware.
+- `ControlGuiLedDotNET/` — current .NET 10 tray application.
+- `ControlGuiLed/` — legacy .NET Framework application.
+- `ControlGuiLedJava/` — Java port with limited features.
+
+## Building
+
+```bash
+# ESP32 firmware
+cd generic_controller_led_esp32
+pio run
+pio run --target upload
+
+# .NET application
+cd ControlGuiLedDotNET
+dotnet build ControlGuiLedDotNET.sln
+dotnet run --project src/ControlGuiLedDotNET
+```
 
 ## Controlling LEDs via a .NET Program (Java port also available with limited features)
-The LED control is managed through a .NET Framework WinForm application, which provides various methods of control beyond just Ambilight. Communication between the PC and Arduino is handled via serial communication, with a baud rate of 250,000 (500,000 for ESP32). The control modes include:
+The LED control is managed through a .NET 10 WinForms tray application, which
+provides various methods of control beyond just Ambilight. Communication
+between the PC and the controller is handled via serial communication, with a
+baud rate of 250,000 on Arduino and 500,000 on ESP32. The control modes include:
 
 - **Individual Colors**: Choose from a color palette.
 - **Rainbow Mode**: Continuously change colors by adjusting the hue.
@@ -38,7 +64,7 @@ The LED control is managed through a .NET Framework WinForm application, which p
 - **Spectrogram Mode**: Adjusts the LED brightness based on the audio levels from the system’s audio device. (A reset option for the sound device is available.)
   
 Additional features include:
-- **Turbo Mode**: Reduces LED update times for faster responsiveness, though this may cause flickering due to hardware limitations.
+- **Ambilight interval**: Adjustable update rate (the older Turbo Mode was replaced by this setting).
 - **Brightness Control**: Adjustable via a slider in the application.
 
 ## Controlling the PC via Remote Control

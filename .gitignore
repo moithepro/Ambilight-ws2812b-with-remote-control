@@ -1,1 +1,19 @@
+# Eclipse metadata
 /.metadata/
+
+# PlatformIO
+.pio/
+.pioenvs/
+.piolibdeps/
+
+# .NET / Visual Studio
+bin/
+obj/
+.vs/
+.vscode/
+*.user
+*.suo
+
+# OS files
+.DS_Store
+Thumbs.db
